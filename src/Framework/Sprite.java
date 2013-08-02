@@ -1,3 +1,4 @@
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -7,8 +8,6 @@ package Framework;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-//C'est toi le NOOB
-//JOHN C'EST LE BEST OF THE WORLD !!!!!!!!!!!
 /**
  *
  * @author John
