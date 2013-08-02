@@ -7,7 +7,7 @@ package Framework;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-// NOOB
+// DOUBLE NOOB !!!!
 //C'est toi le NOOB
 /**
  *
