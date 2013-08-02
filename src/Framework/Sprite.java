@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 
 // NOOB
 //C'est toi le NOOB
+//JOHN C'EST LE BEST !!!!!!!!!!!
 /**
  *
  * @author John
