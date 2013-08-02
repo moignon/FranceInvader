@@ -8,7 +8,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 //C'est toi le NOOB
-//JOHN C'EST LE BEST !!!!!!!!!!!
+//JOHN C'EST LE BEST OF THE WORLD !!!!!!!!!!!
 /**
  *
  * @author John
