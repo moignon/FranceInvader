@@ -25,8 +25,6 @@ import javax.sound.sampled.FloatControl;
  */
 public class AudioPlayer extends Thread {
     
-    //BLAAAAAAAAAAAAAAdfsdfdfqsdsdfs
-    
     File file;
     AudioInputStream audioInputStream = null;
     SourceDataLine line;
