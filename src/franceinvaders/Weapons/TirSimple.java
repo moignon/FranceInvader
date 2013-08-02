@@ -17,8 +17,8 @@ import franceinvaders.ProjectilesEntites.Projectile;
  */
 public class TirSimple implements Weapon {
     
-//    int delai = 700; // en milliSec
-     int delai = 400;
+    int delai = 700; // en milliSec
+     
     long dernierTir;
     
     @Override

@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 // NOOB
+//C'est toi le NOOB
 /**
  *
  * @author John

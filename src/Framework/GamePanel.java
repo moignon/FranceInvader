@@ -19,6 +19,8 @@ import java.awt.Frame;
 
 public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
     
+    
+    
     protected boolean downKey = false;
     protected boolean upKey = false;
     protected boolean leftKey = false; 
@@ -27,7 +29,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
     
     private static int WIDTH2 = 1250;
     private static int HEIGHT2 = 875;
-    private long frameRate = 1000/85;
+    private long frameRate = 1000/50;
     
     private Boolean running = false ;
     
@@ -99,6 +101,10 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
     public void run() {
         if(!packed)waitPack();
         long previousTime, dTime, sleepTime;
+        
+        long []times = new long [20];
+        int i = 0;
+        
         previousTime = System.currentTimeMillis();
         while(running){
             if (!pause){
@@ -110,9 +116,20 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
                     gameRenderer ();
                 }
                 dTime = System.currentTimeMillis() - previousTime;
+                
                 sleepTime = frameRate - dTime;
-                fps =  1000/dTime;
-           
+                times[i] = dTime;
+                
+                long total = 0;
+                for(int j = 0; j < times.length; j++){
+                    total = total + times[j];
+                }
+                total = total/times.length;
+                if (total > 0)
+                    fps =  1000/total;
+                i++;
+                if(i >= times.length) i = 0;
+                System.out.println("fps:"+fps+ "dTime:"+ dTime);
                 if (sleepTime <=0) sleepTime = 5;
             
                 paintOnScreen ();
