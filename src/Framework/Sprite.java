@@ -7,6 +7,7 @@ package Framework;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+// NOOB
 /**
  *
  * @author John
