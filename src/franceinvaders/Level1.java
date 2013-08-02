@@ -8,7 +8,8 @@ import Framework.Background;
 import Framework.GamePanel;
 import Framework.Entite;
 import Framework.Sprite;
-import Framework.SpriteBank;
+import Framework.ImageBank;
+import Framework.SpriteAnime;
 import franceinvaders.Mobs.Mob;
 import franceinvaders.Mobs.Psy;
 import franceinvaders.Mobs.VagueAsteroid;
@@ -41,8 +42,8 @@ public class Level1 extends GamePanel {
         this.armeEquipee = new TriBlaster();
         background = new Background(Constantes.backgroundRef);
         
-        sPlayer = SpriteBank.get().getSprite(Constantes.playerRef);
-        SpriteFlamme = SpriteBank.get().getSprite(Constantes.flammeRef,1,4,10);
+        sPlayer = new Sprite(ImageBank.get().getImages(Constantes.playerRef)[0][0]);
+//        SpriteFlamme = ImageBank.get().getSprite(Constantes.flammeRef,1,4,10);
         
         player1 = new Player(sPlayer, this);
         player1.setCenteredPostion(this.getWIDTH()/2, this.getHEIGHT()- player1.h);
@@ -81,6 +82,7 @@ public class Level1 extends GamePanel {
             getListEntite().get(i).update();
         }
         player1.update();
+        background.update();
     }
     
     @Override

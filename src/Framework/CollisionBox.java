@@ -13,8 +13,5 @@ import java.awt.Rectangle;
 class CollisionBox extends Rectangle {
     void translate(double xSpeed, double ySpeed) {
         translate((int)xSpeed,(int)ySpeed);
-    }  
-//    boolean intersect (CollisionBox cB){
-//        return this.intersects((Rectangle) cB);
-//    }
+    }
 }

@@ -21,63 +21,124 @@ public class SpriteAnime extends Sprite {
     private Boolean looping = true;
     private Boolean active;
     
-    public SpriteAnime (BufferedImage[][] images, long AnimTime) {
+    public SpriteAnime (BufferedImage[][] images, int AnimTime) {
         super(images[0][0]);
         this.lastFrameTime = 0;
         clés = images;
-        animTime = AnimTime;
+        animTime = AnimTime*1000000;
         active = true;
     }
     
     @Override
     public void updateAnim(){
-        if (active){
-            if (clés[Anim].length == 1)
+        if (isActive()){
+            if (getClés()[getAnim()].length == 1)
                 return;
-            if (lastFrameTime == 0 ){
-                lastFrameTime = System.nanoTime();
+            if (getLastFrameTime() == 0 ){
+                this.lastFrameTime = System.nanoTime();
                 return;
             }
 
             long currentTime = System.nanoTime();
-            long test = currentTime - lastFrameTime;
-
-            if (currentTime - lastFrameTime > animTime){
-                numClé++;
-                lastFrameTime = currentTime;
-                if (numClé >= clés[0].length){
-                    if (looping)
-                        numClé = 0;
+            if (currentTime - getLastFrameTime() > getAnimTime()){
+                setNumClé(getNumClé() + 1);
+                this.lastFrameTime = currentTime;
+                if (getNumClé() >= getClés()[0].length){
+                    if (isLooping())
+                        setNumClé(0);
                     else{
-                        active = false;
-                        numClé--;
+                        setActive((Boolean) false);
+                        setNumClé(getNumClé() - 1);
                     }
                 }
             }
         }
     }
     
+    
     @Override
     public BufferedImage getImage(){
-        return clés [Anim][numClé];
+        return getClés() [getAnim()][getNumClé()];
+    } 
+    
+    /**
+     * @return true si l'animation tourne en boucle
+     */
+    public Boolean isLooping() {
+        return looping;
+    }
+    
+    public void setLooping (Boolean looping){
+        this.looping = looping;
     }
 
+    public boolean isActive() {
+        return this.active;
+    }
+    public void setActive(Boolean b){
+        this.active = b;
+    }
+    
+    /**
+     * @return le numero de l'Animation en cours
+     */
+    public int getAnim() {
+        return Anim;
+    }
+
+    /**
+     * @param Anim le numero de l'animation souhaité, si le chiffre et trop gros, ne fait rien
+     */
+    public void setAnim(int Anim) {
+        if (Anim <= this.clés.length)
+            this.Anim = Anim;
+    } 
+    
+    /**
+     * @return les clés qui composent ce Sprite
+     */
+    public BufferedImage[][] getClés() {
+        return clés;
+    }
+
+    /**
+     * @return le numero de la clé actuelle
+     */
+    public int getNumClé() {
+        return numClé;
+    }
+
+    /**
+     * @param numClé set la clé actuelle ( si nombre trop grand ne fait rien)
+     */
+    public void setNumClé(int numClé) {
+        int size;
+        if(numClé <= this.getClés()[0].length)
+            this.numClé = numClé;
+    }
+
+    /**
+     * @return animTime, le temps que dure une clé avant de passer a la suivante
+     */
+    public long getAnimTime() {
+        return animTime;
+    }
+    
     /**
      * @param animTime le temps que dure une clé avant de passer a la suivante
      */
     public void setAnimTime(long animTime) {
         this.animTime = animTime;
     }
-    public void setLooping (boolean looping){
-        this.looping = looping;
+
+    /**
+     * @return the lastFrameTime
+     */
+    public long getLastFrameTime() {
+        return lastFrameTime;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-    public void setActive(Boolean b){
-        this.active = b;
-    }
+
     
     
     

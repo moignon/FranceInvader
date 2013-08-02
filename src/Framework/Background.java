@@ -19,17 +19,15 @@ public class Background {
     private int speed = 10;
     
     public Background(String ref){
-        sprite = SpriteBank.get().getSprite(ref);
-        
+        sprite = new Sprite(ImageBank.get().getImages(ref)[0][0]);   
     }
 
     public void blit(Graphics gBuffer) {
         sprite.draw(gBuffer, 0, position);
         sprite.draw(gBuffer, 0,position - sprite.getHeight());
-        updatePos();
     }
 
-    private void updatePos() {
+    public void update() {
         position = (position + speed) % sprite.getHeight();
     }
    

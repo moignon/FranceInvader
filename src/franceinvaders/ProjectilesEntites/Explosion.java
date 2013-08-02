@@ -9,7 +9,7 @@ import Framework.Entite;
 import Framework.GamePanel;
 import Framework.Sprite;
 import Framework.SpriteAnime;
-import Framework.SpriteBank;
+import Framework.ImageBank;
 import franceinvaders.Constantes;
 import java.io.File;
 
@@ -22,7 +22,7 @@ public class Explosion extends Entite{
     static File Sound;
     
     public Explosion (GamePanel panel){
-        super(SpriteBank.get().getSprite(Constantes.explosionRef,1,5,100*1000000), panel);
+        super(new SpriteAnime(ImageBank.get().getImages(Constantes.explosionRef, 1, 5),100), panel);
         ((SpriteAnime)this.sprite).setLooping(false);
         if (Sound == null)
             Sound = new File ("ressources/audio/fx2.wav");
@@ -36,7 +36,6 @@ public class Explosion extends Entite{
     public void codeMe() {
         SpriteAnime s = ((SpriteAnime)this.sprite);
         if (!s.isActive()){
-            System.out.println("anim explo terminée");
             this.panel.getListEntite().remove(this);
         }
     }

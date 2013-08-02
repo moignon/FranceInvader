@@ -39,11 +39,7 @@ public final class GameFrame extends JFrame{
         this.requestFocus();
         Level1 jeu = new Level1();        
         this.add(jeu);
-        
-         System.err.print(this.getInsets());
         this.setVisible(true);
-        
-         System.err.print(this.getInsets());
     }
     
 }

@@ -6,7 +6,7 @@ package franceinvaders.Mobs;
 
 import Framework.GamePanel;
 import Framework.Sprite;
-import Framework.SpriteBank;
+import Framework.ImageBank;
 import franceinvaders.Constantes;
 
 /**
@@ -17,7 +17,7 @@ public class jamel extends Mob {
     
     
     public jamel (GamePanel panel){
-        super(SpriteBank.get().getSprite(Constantes.jamelRef),panel, 4000,200);
+        super(new Sprite(ImageBank.get().getImages(Constantes.jamelRef)[0][0]),panel, 4000,200);
     }
 
     @Override

@@ -5,7 +5,8 @@
 package franceinvaders.Weapons;
 
 import Framework.Entite;
-import Framework.SpriteBank;
+import Framework.ImageBank;
+import Framework.SpriteAnime;
 import franceinvaders.Constantes;
 import franceinvaders.ProjectilesEntites.Flamme;
 import franceinvaders.ProjectilesEntites.Projectile;
@@ -28,7 +29,7 @@ public class TirSimple implements Weapon {
                y = e.getY();
         dernierTir = System.currentTimeMillis();
         Projectile tir;
-        tir= new Flamme(SpriteBank.get().getSprite(Constantes.flammeRef,1,4,60*1000000), e.getPanel());
+        tir= new Flamme(new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 ), e.getPanel());
         tir.setCenteredPostion(e.getX()+ e.getL()/2, e.getY());
         tir.setYspeed(0);
         tir.setYspeed(-10);

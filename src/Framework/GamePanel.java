@@ -179,7 +179,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
         Graphics g;
         try{
             g = this.getGraphics();
-            Frame f = franceinvaders.FranceInvaders.j;
+            Frame f = franceinvaders.FranceInvaders.jeu;
             g.drawImage(buffer, 0, 0,f.getWidth(),f.getHeight(), null);
             g.dispose(); 
         }catch (Exception e){}
