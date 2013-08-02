@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 
 // DOUBLE NOOB blablablibli!!!!
 //C'est toi le NOOB
-
+//c réglé !!
 /**
  *
  * @author John
