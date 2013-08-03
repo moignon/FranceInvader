@@ -34,7 +34,8 @@ public class Level1 extends GamePanel {
     Player player1;
     Background background;
     Mob  jamel, psy;
-    Sprite SpriteFlamme, sPlayer;
+    Sprite SpriteFlamme;
+    SpriteAnime sPlayer;
     Weapon armeEquipee;
    
     public Level1() {
@@ -42,7 +43,7 @@ public class Level1 extends GamePanel {
         this.armeEquipee = new TriBlaster();
         background = new Background(Constantes.backgroundRef);
         
-        sPlayer = new Sprite(ImageBank.get().getImages(Constantes.playerRef)[0][0]);
+        sPlayer = new SpriteAnime(ImageBank.get().getImages(Constantes.playerRef, 3, 4),60 );
 //        SpriteFlamme = ImageBank.get().getSprite(Constantes.flammeRef,1,4,10);
         
         player1 = new Player(sPlayer, this);
@@ -69,10 +70,22 @@ public class Level1 extends GamePanel {
     @Override
     public void gameUpdate(){
         
-        if (rightKey && player1.getX()+player1.getL()<this.getWIDTH()-5)player1.setXspeed(5);
-        else player1.setXspeed(0);
-        if (leftKey&& player1.getX()>5)player1.setXspeed(-5);
-        else if (!rightKey)player1.setXspeed(0);
+        if (rightKey && player1.getX()+player1.getL()<this.getWIDTH()-5){
+            player1.setXspeed(5);
+            sPlayer.setAnim(1);
+        }
+        else {
+            player1.setXspeed(0);
+            sPlayer.setAnim(0);
+        }
+        if (leftKey&& player1.getX()>5){
+            player1.setXspeed(-5);
+            sPlayer.setAnim(2);
+        }
+        else if (!rightKey){
+            player1.setXspeed(0);
+            sPlayer.setAnim(0);
+        }
         if (!rightKey && !leftKey) player1.setXspeed(0);
         if (upKey){
             player1.fire(armeEquipee);

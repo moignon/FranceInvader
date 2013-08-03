@@ -9,7 +9,7 @@ package franceinvaders;
  * @author John
  */
 public class Constantes {
-        public static final String playerRef = "11lepen.png",
+        public static final String playerRef = "marineSsS.png",
                                    backgroundRef = "11spacebackground.png",
                                    flammeRef = "14flame.png",
                                    jamelRef = "11jamel.png",
