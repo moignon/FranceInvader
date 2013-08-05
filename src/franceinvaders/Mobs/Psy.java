@@ -18,7 +18,7 @@ public class Psy extends Mob {
     
     
     public Psy (GamePanel panel){
-        super( new Sprite(ImageBank.get().getImages(Constantes.psyRef)[0][0]), panel, 10, 400);
+        super( new Sprite(ImageBank.get().getImages(Constantes.psyRef)), panel, 10, 400);
     }
 
     @Override

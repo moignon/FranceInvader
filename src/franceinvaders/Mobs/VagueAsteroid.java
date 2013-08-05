@@ -8,6 +8,7 @@ import Framework.Entite;
 import Framework.GamePanel;
 import Framework.Sprite;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 /**
@@ -27,13 +28,18 @@ public class VagueAsteroid extends Psy {
     private int pixelsDescendues;
     private int pixelsDescendus;
     Boolean droite = false, gauche = false, bas = false, haut = false;
-    Mob MobTouché = null;
+    ArrayList <Mob> MobsTouché = null;
     private boolean wait = false;
+    private boolean invulnerable = true;
+    long recoveryTime = 1500,
+         deltaTime = 0,
+         baseTime;
     
     
     private VagueAsteroid (GamePanel panel) {
         super(panel);
         Psys = new ArrayList <>();
+        MobsTouché = new ArrayList();
         vitesseActuelle = vitesseDepart;
         for (int j=30 ; j <= nbLignes*ecartLigne; j+=ecartLigne){
             for (int i=dG ; i <nbColonnes*ecartColonne+dG; i+=ecartColonne){
@@ -42,6 +48,7 @@ public class VagueAsteroid extends Psy {
                 Psys.add(psy);
             }
         }
+        baseTime =  GamePanel.currentTime;
     }
     
     public static VagueAsteroid createVagueAsteroid (GamePanel panel) {
@@ -54,6 +61,11 @@ public class VagueAsteroid extends Psy {
     
     @Override
     public void update (){
+        if (GamePanel.currentTime - baseTime > recoveryTime){
+            invulnerable = false;
+            MobsTouché.clear();
+        }
+        
         if ( (Psys.size() == 30 || Psys.size() == 20 || Psys.size() == 10 ) && wait == false){
             wait = true ;
             if(bas){
@@ -89,7 +101,7 @@ public class VagueAsteroid extends Psy {
     }
     
     @Override
-    public void blit(Graphics gBuffer) {        
+    public void blit(Graphics2D gBuffer) {        
         for(int i = 0; i < Psys.size(); i ++){
             Psys.get(i).blit(gBuffer);
         }
@@ -115,24 +127,32 @@ public class VagueAsteroid extends Psy {
     
     @Override
     public boolean collidesWith(Entite e){
+        Boolean hit = false;
         for(int i = 0; i < Psys.size(); i ++){
             if (Psys.get(i).collidesWith(e)){
-                MobTouché = Psys.get(i);
-                return  true;
+                MobsTouché.add(Psys.get(i));
+                hit = true;
             }
         }
-        return false;
+        return hit;
     }
     
     @Override
     public void takeDmg(int hitDmg) {
-        this.MobTouché.takeDmg(hitDmg);
-        if (MobTouché.getLife() <= 0){
-            MobTouché.dead();
-            Psys.remove(MobTouché);
-            wait = false;
+        if (invulnerable) {
+            MobsTouché.clear();
+            return;
         }
-        
+        for (int i = 0 ; i < MobsTouché.size(); i ++){
+            Mob MobTouché = MobsTouché.get(i);
+            MobTouché.takeDmg(hitDmg);
+            if (MobTouché.getLife() <= 0){
+                MobTouché.dead();
+                Psys.remove(MobTouché);
+                wait = false;
+            }
+        }
+        MobsTouché.clear();
         if (this.Psys.size() == 0)
             dead ();
     }

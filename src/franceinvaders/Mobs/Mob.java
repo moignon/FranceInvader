@@ -8,6 +8,7 @@ import Framework.Entite;
 import Framework.GamePanel;
 import Framework.Sprite;
 import franceinvaders.Constantes;
+import franceinvaders.ProjectilesEntites.Explosion;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -72,11 +73,15 @@ public abstract class Mob extends Entite{
 
     public void takeDmg(int hitDmg) {
         this.life = this.life - hitDmg;
+        if (life <= 0) this.dead();
     }
 
     public void dead() {
         this.panel.addScore(this.points);
         this.panel.getListEntite().remove(this);
+        Explosion exp = new Explosion(this.panel);
+        exp.setCenteredPostion(x, y);
+        this.panel.getListEntite().add(exp);
     }
     
 

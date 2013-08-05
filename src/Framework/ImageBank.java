@@ -31,10 +31,10 @@ public class ImageBank {
     public static ImageBank get(){
         return bank;
     }
-    public BufferedImage[][] getImages(String ref){
+    public BufferedImage getImages(String ref){
         
         if (images.get(ref) != null){
-            return (BufferedImage[][])images.get(ref);
+            return (BufferedImage)images.get(ref);
         }
         System.out.println("acces disque"+ref);
         String path = IMAGE_DIR+ref;
@@ -42,10 +42,8 @@ public class ImageBank {
 	try {            
             Bimage = ImageIO.read(new File(path)) ;
             images.put(ref,Bimage);
-            BufferedImage[][] clés = new BufferedImage[1][1];
-            clés[0][0] = Bimage;
-            images.put(ref,clés);
-            return clés;
+            images.put(ref,Bimage);
+            return Bimage;
         } catch (IOException e) {
             return null;
         }
@@ -56,6 +54,7 @@ public class ImageBank {
         if (clés != null) {
             return  clés;
         }
+        System.out.println("acces disque"+ref);
         String path = IMAGE_DIR+ref;
         BufferedImage Bimage;
 	try {

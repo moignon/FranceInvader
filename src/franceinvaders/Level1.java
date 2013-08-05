@@ -15,6 +15,8 @@ import franceinvaders.Mobs.Psy;
 import franceinvaders.Mobs.VagueAsteroid;
 import franceinvaders.Mobs.jamel;
 import franceinvaders.ProjectilesEntites.Flamme;
+import Animations.Papa;
+import franceinvaders.Weapons.DaddyBoom;
 import franceinvaders.Weapons.TirSimple;
 import franceinvaders.Weapons.TriBlaster;
 import franceinvaders.Weapons.Weapon;
@@ -36,11 +38,15 @@ public class Level1 extends GamePanel {
     Mob  jamel, psy;
     Sprite SpriteFlamme;
     SpriteAnime sPlayer;
-    Weapon armeEquipee;
+    Weapon armeEquipee,armeSecondaire;
+    
+    Boolean firestVagueOff = false;
    
     public Level1() {
         super();
-        this.armeEquipee = new TriBlaster();
+        
+        this.armeEquipee = new TirSimple();
+        this.armeSecondaire = new DaddyBoom();
         background = new Background(Constantes.backgroundRef);
         
         sPlayer = new SpriteAnime(ImageBank.get().getImages(Constantes.playerRef, 3, 4),60 );
@@ -55,23 +61,24 @@ public class Level1 extends GamePanel {
 
         
         audio = AudioPlayer.createPlayer(new File("ressources/audio/RoccoW_-_Break-A-Leg.wav"));
-        audio.start();
-        
-//        
-//        Flamme test = new Flamme(SpriteBank.get().getSprite(Constantes.flammeRef,1,4,60*1000000), this);
-//        test.setCenteredPostion(500,800);
-//        test.setYspeed(0);
-//        test.setYspeed(0);
-//        this.getListEntite().add(test);
-//        
+        audio.start();    
 
     }
             
     @Override
     public void gameUpdate(){
         
+        if (firestVagueOff){
+            double rand = Math.random();
+            if (rand < 0.02){
+                jamel j = new jamel(this);
+                this.add(j);
+            }
+        }
+        
+        
         if (rightKey && player1.getX()+player1.getL()<this.getWIDTH()-5){
-            player1.setXspeed(5);
+            player1.setXspeed(7);
             sPlayer.setAnim(1);
         }
         else {
@@ -79,7 +86,7 @@ public class Level1 extends GamePanel {
             sPlayer.setAnim(0);
         }
         if (leftKey&& player1.getX()>5){
-            player1.setXspeed(-5);
+            player1.setXspeed(-7);
             sPlayer.setAnim(2);
         }
         else if (!rightKey){
@@ -89,6 +96,9 @@ public class Level1 extends GamePanel {
         if (!rightKey && !leftKey) player1.setXspeed(0);
         if (upKey){
             player1.fire(armeEquipee);
+        }
+        if(downKey){
+            player1.fire(armeSecondaire);
         }
         
         for(int i = 0; i<getListEntite().size(); i++){
@@ -112,8 +122,10 @@ public class Level1 extends GamePanel {
     
     @Override
     public void gameOver() {
-        this.setGameOverMessage("Bravo");
+        //this.setGameOverMessage("Bravo");
         //this.gameOver = true;
+        firestVagueOff = true;
+        this.armeEquipee = new TriBlaster();
         Entite Vague = VagueAsteroid.createVagueAsteroid(this);
         this.getListEntite().add(Vague);
     }

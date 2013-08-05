@@ -54,7 +54,7 @@ public abstract class Entite {
     }
     
     
-    public void blit(Graphics gBuffer) {
+    public void blit(Graphics2D gBuffer) {
         if (active)
             if (visible)
                 sprite.draw(gBuffer, x, y);
@@ -70,8 +70,8 @@ public abstract class Entite {
         y = _y;
     }
     public void setCenteredPostion (double _x, double _y){
-        x = _x - this.getL()/2;
-        y = _y - this.getH()/2;
+        x = _x - sprite.getWidth()/2;
+        y = _y - sprite.getHeight()/2;
     }
     public double getX() {
         return x;

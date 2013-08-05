@@ -47,7 +47,7 @@ public class SpriteAnime extends Sprite {
                     if (isLooping())
                         setNumClé(0);
                     else{
-                        setActive((Boolean) false);
+                        setActive(false);
                         setNumClé(getNumClé() - 1);
                     }
                 }
@@ -87,10 +87,12 @@ public class SpriteAnime extends Sprite {
     }
 
     /**
-     * @param Anim le numero de l'animation souhaité, si le chiffre et trop gros, ne fait rien
+     * @param Anim set le numero de l'animation souhaité, si le chiffre et trop gros, set sur la derniere anim
      */
     public void setAnim(int Anim) {
-        if (Anim <= this.clés.length)
+        if (Anim > this.clés.length)
+            this.Anim = this.clés.length-1; //Anim;
+        else
             this.Anim = Anim;
     } 
     

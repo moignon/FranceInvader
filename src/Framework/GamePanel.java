@@ -29,7 +29,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
     
     private static int WIDTH2 = 1250;
     private static int HEIGHT2 = 875;
-    private long frameRate = 1000/50;
+    private long frameRate = 1000/90;
     
     private Boolean running = false ;
     
@@ -42,6 +42,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
     protected AudioPlayer audio;
     private boolean pause;
     private ArrayList <Entite> listEntite;
+    public static long previousTime, dTime, sleepTime,currentTime;
     
     private int score = 0;
     
@@ -56,6 +57,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
         addKeyListener(this);
         listEntite = new ArrayList <>();
         Boolean packed = false;
+        currentTime = System.currentTimeMillis();
     }  
     public int getWIDTH (){
         return WIDTH2;
@@ -100,7 +102,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
     @Override
     public void run() {
         if(!packed)waitPack();
-        long previousTime, dTime, sleepTime;
+        
         
         long []times = new long [20];
         int i = 0;
@@ -115,7 +117,8 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
                     gameUpdate();
                     gameRenderer ();
                 }
-                dTime = System.currentTimeMillis() - previousTime;
+                currentTime = System.currentTimeMillis();
+                dTime = currentTime - previousTime;
                 
                 sleepTime = frameRate - dTime;
                 times[i] = dTime;
@@ -129,11 +132,11 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
                     fps =  1000/total;
                 i++;
                 if(i >= times.length) i = 0;
-                System.out.println("fps:"+fps+ "dTime:"+ dTime);
+               // System.out.println("fps:"+fps+ "dTime:"+ dTime);
                 if (sleepTime <=0) sleepTime = 5;
             
                 paintOnScreen ();
-                previousTime = System.currentTimeMillis();
+                previousTime = currentTime;
             
                 try{
                     Thread.sleep(sleepTime);

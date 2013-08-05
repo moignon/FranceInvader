@@ -6,6 +6,7 @@
 package Framework;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 /**
@@ -24,13 +25,16 @@ public class Sprite {
     public BufferedImage getImage(){
         return image;
     } 
+    public void setImage (BufferedImage image){
+        this.image = image;
+    }
     public int getWidth(){
         return getImage().getWidth();
     }
     public int getHeight(){
         return getImage().getHeight();
     }
-    public void draw (Graphics g,double _x, double _y){
+    public void draw (Graphics2D g,double _x, double _y){
         g.drawImage(getImage(), (int)_x , (int)_y , null);
     }
 

@@ -10,7 +10,8 @@ import java.awt.Rectangle;
  *
  * @author John
  */
-class CollisionBox extends Rectangle {
+public class CollisionBox extends Rectangle {
+    
     void translate(double xSpeed, double ySpeed) {
         translate((int)xSpeed,(int)ySpeed);
     }

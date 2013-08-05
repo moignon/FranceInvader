@@ -29,13 +29,10 @@ public abstract class Projectile extends Entite{
         }
         for (int i = 0; i < this.panel.getListEntite().size(); i++){
             Entite e = this.panel.getListEntite().get(i);
-            if (e instanceof VagueAsteroid) {
+            if (e instanceof Mob) {
                 if (e.collidesWith(this)){
-                    ((VagueAsteroid)e).takeDmg(this.getHitDmg());
+                    ((Mob)e).takeDmg(this.getHitDmg());
                     this.panel.getListEntite().remove(this);
-                    Explosion exp = new Explosion(this.panel);
-                    exp.setCenteredPostion(x, y);
-                    this.panel.getListEntite().add(exp);
                 }
                 
             }

@@ -21,7 +21,7 @@ public final class GameFrame extends JFrame{
     public GameFrame (){
         super();
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        if(true) // Full screen mode
+        if(false) // Full screen mode
 	{
 	    this.setUndecorated(true);
             this.setLocationRelativeTo(null);
