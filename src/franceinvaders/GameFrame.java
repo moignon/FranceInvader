@@ -13,7 +13,7 @@ import javax.swing.JFrame;
  *
  * @author John
  */
-public final class GameFrame extends JFrame{
+public class GameFrame extends JFrame{
     
     ArrayList <GamePanel> niveaux;
     
@@ -21,7 +21,7 @@ public final class GameFrame extends JFrame{
     public GameFrame (){
         super();
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        if(false) // Full screen mode
+        if(true) // Full screen mode
 	{
 	    this.setUndecorated(true);
             this.setLocationRelativeTo(null);
@@ -37,8 +37,9 @@ public final class GameFrame extends JFrame{
 	    this.setResizable(true);
 	}
         this.requestFocus();
-        Level1 jeu = new Level1();        
-        this.add(jeu);
+        MainMenu menu = new MainMenu(this);
+        //Level1 jeu = new Level1();        
+        this.add(menu);
         this.setVisible(true);
     }
     

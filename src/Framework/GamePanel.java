@@ -25,7 +25,8 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
     protected boolean upKey = false;
     protected boolean leftKey = false; 
     protected boolean rightKey = false,
-                      echap = false;
+                      echap = false,
+                      enter = false;
     
     private static int WIDTH2 = 1250;
     private static int HEIGHT2 = 875;
@@ -40,8 +41,9 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
     private double fps = 0 ;
     private Thread thread;
     protected AudioPlayer audio;
-    private boolean pause;
+    protected boolean pause;
     private ArrayList <Entite> listEntite;
+    
     public static long previousTime, dTime, sleepTime,currentTime;
     
     private int score = 0;
@@ -57,7 +59,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
         addKeyListener(this);
         listEntite = new ArrayList <>();
         Boolean packed = false;
-        currentTime = System.currentTimeMillis();
+        GamePanel.currentTime = System.currentTimeMillis();
     }  
     public int getWIDTH (){
         return WIDTH2;
@@ -92,10 +94,10 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
             thread.start();
         }
     }
-    private void stopGame (){
+    public void stopGame (){
         running = false;
     }
-    private void pauseGame (){
+    public void pauseGame (){
         pause = !pause;
     }
     
@@ -132,7 +134,6 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
                     fps =  1000/total;
                 i++;
                 if(i >= times.length) i = 0;
-               // System.out.println("fps:"+fps+ "dTime:"+ dTime);
                 if (sleepTime <=0) sleepTime = 5;
             
                 paintOnScreen ();
@@ -216,6 +217,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
                 echap = true;
                 this.pauseGame();
             }
+            if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) enter = true; 
             
     }
     @Override
@@ -225,6 +227,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
         if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_LEFT)leftKey = false;
         if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_RIGHT)rightKey = false;
         if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE) echap = false;
+        if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) enter = false;
     }
     @Override
     public void keyTyped(KeyEvent ke) {}

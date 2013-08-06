@@ -31,6 +31,7 @@ public class AudioPlayer extends Thread {
     FloatControl volCtrl;
     boolean stop = false;
     boolean existe = false;
+    private boolean looping = true;
     
  
     private AudioPlayer (File f){
@@ -85,12 +86,12 @@ public class AudioPlayer extends Thread {
                 Logger.getLogger(AudioPlayer.class.getName()).log(Level.SEVERE, null, ex);
             }
             line.start();
+                byte bytes[] = new byte[1024];
+                int bytesRead=0;
+                while (((bytesRead = audioInputStream.read(bytes, 0, bytes.length)) != -1) && !stop) {
+                    line.write(bytes, 0, bytesRead);
+                }
             
-            byte bytes[] = new byte[1024];
-            int bytesRead=0;
-            while (((bytesRead = audioInputStream.read(bytes, 0, bytes.length)) != -1) && !stop) {
-                line.write(bytes, 0, bytesRead);
-            }
             line.close();
         } catch (IOException ex) {
             Logger.getLogger(AudioPlayer.class.getName()).log(Level.SEVERE, null, ex);
@@ -105,11 +106,25 @@ public class AudioPlayer extends Thread {
         return line;
     }
 
-    void pause() {
+    public void pause() {
         this.stop = true;
     }
 
-    void restart() {
+    public void restart() {
         this.stop = false;
+    }
+
+    /**
+     * @return the looping
+     */
+    public boolean isLooping() {
+        return looping;
+    }
+
+    /**
+     * @param looping the looping to set
+     */
+    public void setLooping(boolean looping) {
+        this.looping = looping;
     }
 }

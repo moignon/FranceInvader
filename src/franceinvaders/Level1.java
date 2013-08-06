@@ -61,7 +61,7 @@ public class Level1 extends GamePanel {
 
         
         audio = AudioPlayer.createPlayer(new File("ressources/audio/RoccoW_-_Break-A-Leg.wav"));
-        audio.start();    
+        audio.start();
 
     }
             
@@ -70,7 +70,7 @@ public class Level1 extends GamePanel {
         
         if (firestVagueOff){
             double rand = Math.random();
-            if (rand < 0.02){
+            if (rand < 0.2){
                 jamel j = new jamel(this);
                 this.add(j);
             }
@@ -128,6 +128,31 @@ public class Level1 extends GamePanel {
         this.armeEquipee = new TriBlaster();
         Entite Vague = VagueAsteroid.createVagueAsteroid(this);
         this.getListEntite().add(Vague);
+    }
+    
+    
+//    @Override
+//    public void pauseGame (){
+//        pause = !pause;
+//        if(pause){
+//            audio.pause();
+//        }
+//        else {
+//            audio = AudioPlayer.createPlayer(new File("ressources/audio/RoccoW_-_Break-A-Leg.wav"));
+//            audio.start();
+//        }
+//    }
+    
+    
+        @Override
+    public void pauseGame (){
+        pause = !pause;
+        if(pause){
+            audio.suspend();
+        }
+        else {
+            audio.resume();
+        }
     }
 
     

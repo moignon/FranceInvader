@@ -19,7 +19,7 @@ public class DaddyBoom implements Weapon {
     
     @Override
     public void Fire(Entite e) {
-        if ( !e.getPanel().getListEntite().contains(animation) && nbBomb > 0){
+        if( !e.getPanel().getListEntite().contains(animation) && nbBomb > 0){
             animation = null;
             animation = new Papa(e.getPanel());
             e.getPanel().add(animation);
