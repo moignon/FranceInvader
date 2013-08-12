@@ -51,12 +51,12 @@ class Player extends Entite {
                 { 
                     case "haut":
                     {
-
+                       
                         break;
                     }
                     case "bas" : 
                     {
-
+                       
                         break;
                     }
                     case "droite" :
