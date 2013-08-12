@@ -14,6 +14,7 @@ import java.awt.Rectangle;
 public abstract class Entite {
     protected double xSpeed, ySpeed; //(pixel/frame)
     protected double x,y;
+    protected double angle = 0;
     
     boolean active = false;
     boolean visible = false;
@@ -115,6 +116,16 @@ public abstract class Entite {
         return false;
     }
   
+    public double getAngle()
+    {
+        return this.angle;
+    }
+    
+    public double setAngle(double param)
+    {
+        this.angle = param;
+        return this.angle;
+    }
     
 
    
