@@ -9,6 +9,7 @@ import Framework.Background;
 import Framework.GamePanel;
 import java.awt.Component;
 import java.io.File;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /**
@@ -34,16 +35,20 @@ public class MainMenu extends GamePanel {
         @Override
     public void gameUpdate(){
             background.update();
+           
             if(enter){
-                conteneur.remove(this);
-                conteneur.setVisible(false);
-                conteneur.add(new Level1());
-                conteneur.setVisible(true);
+                launchLV(new Level1());
                 enter = false;
-                audio.pause();
-                this.stopGame();
             }
         }
+    public void launchLV(GamePanel level){
+        conteneur.remove(this);
+        conteneur.setVisible(false);
+        conteneur.add(level);
+        conteneur.setVisible(true);
+        audio.pause();
+        this.stopGame();
+    }
 
     @Override
     protected void blitEntites() {
@@ -53,5 +58,7 @@ public class MainMenu extends GamePanel {
     @Override
     public void gameOver() {
     }
+    
+    
     
 }

@@ -66,6 +66,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
         requestFocus();
         readyToClose();
         addKeyListener(this);
+        addMouseListener(this);
         listEntite = new ArrayList <>();
         Boolean packed = false;
         GamePanel.currentTime = System.currentTimeMillis();
