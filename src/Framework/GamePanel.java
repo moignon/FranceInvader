@@ -247,7 +247,6 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     @Override
     public void mousePressed(MouseEvent e) {
         keys[e.getButton()] = true;
-        System.out.println("press");
     }
 
     @Override
