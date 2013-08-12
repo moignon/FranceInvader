@@ -10,6 +10,8 @@ import Framework.GamePanel;
 import Framework.Sprite;
 import franceinvaders.ProjectilesEntites.Flamme;
 import franceinvaders.ProjectilesEntites.Projectile;
+import franceinvaders.Weapons.DaddyBoom;
+import franceinvaders.Weapons.TirSimple;
 import java.util.ArrayList;
 
 /**
@@ -17,22 +19,83 @@ import java.util.ArrayList;
  * @author John
  */
 class Player extends Entite {
-
+    private GamePanel gamePanel;
+    private boolean []keys;
+    private String []keymap;
+    Weapon armeEquipee,armeSecondaire;
+    
     public Player(Sprite sprite,GamePanel panel) {
         super(sprite, panel);
         this.angle = 0;
+        this.armeEquipee = new TirSimple();
+        this.armeSecondaire = new DaddyBoom();
+        loadKeymap("Defaut");
+    }
+    
+    public void setGamePannel(GamePanel panel)
+    {
+        gamePanel = panel;
+        keys = gamePanel.getKeys();
     }
     
     public void getInput()
     {
+        int i = 0;
         
+        this.setXspeed(0);
+        while(i < keys.length)
+        {
+            if(keys[i])
+            {
+                switch (keymap[i])
+                { 
+                    case "haut":
+                    {
+                        this.fire(armeEquipee);
+                        break;
+                    }
+                    case "bas" : 
+                    {
+                        this.fire(armeSecondaire);
+                        break;
+                    }
+                    case "droite" :
+                    {
+                        this.setXspeed(7);
+                        break;
+                    }
+                    case "gauche" :
+                    {
+                       this.setXspeed(-7);
+                       break;
+                    }
+                
+                }
+                          
+            }
+            i++;
+        }
     }
     
     public void fire (Weapon arme){
         arme.Fire(this);
     }
 
-    
+    public void loadKeymap(String param)
+    {
+        keymap = new String[256];
+        if(param == "Defaut")
+        {
+            keymap[java.awt.event.KeyEvent.VK_UP] = "haut";
+            keymap[java.awt.event.KeyEvent.VK_DOWN] = "bas";
+            keymap[java.awt.event.KeyEvent.VK_LEFT] = "gauche";
+            keymap[java.awt.event.KeyEvent.VK_RIGHT] = "droite";
+        }
+        else
+        {
+            // charger a partir d'un fichier , d'adresse param gogogogo noob
+        }
+    }
     
     @Override
     public void codeMe() {
