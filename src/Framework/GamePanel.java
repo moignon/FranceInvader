@@ -16,11 +16,19 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 import franceinvaders.FranceInvaders;
 import java.awt.Frame;
+import java.util.Vector;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionListener;
 
-public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
+public abstract class GamePanel extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener{
     
     
     
+    protected Vector mousePos;
+    protected boolean [] keys = new boolean[256];
     protected boolean downKey = false;
     protected boolean upKey = false;
     protected boolean leftKey = false; 
@@ -60,6 +68,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
         listEntite = new ArrayList <>();
         Boolean packed = false;
         GamePanel.currentTime = System.currentTimeMillis();
+        initKeys();
     }  
     public int getWIDTH (){
         return WIDTH2;
@@ -218,7 +227,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
                 this.pauseGame();
             }
             if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) enter = true; 
-            
+            keys[ke.getKeyCode()] = true;
     }
     @Override
     public void keyReleased(KeyEvent ke) {
@@ -228,9 +237,18 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
         if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_RIGHT)rightKey = false;
         if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE) echap = false;
         if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) enter = false;
+        keys[ke.getKeyCode()] = false;
     }
     @Override
     public void keyTyped(KeyEvent ke) {}
+    
+    public void mousePressed(MouseEvent e) {
+        keys[e.getButton()] = true;
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        keys[e.getButton()] = false;    
+    }
     
     public void remove(Entite e){
         listEntite.remove(e);
@@ -278,7 +296,20 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener{
         }
     }
 
-    
-    
-    
+    public boolean [] getKeys()
+    {
+        return keys;
     }
+
+    public void initKeys()
+    {
+        int i = 0;
+        
+        while(i < keys.length)
+        {
+            keys[i] = false;
+            i++;
+        }
+    }
+    
+}
