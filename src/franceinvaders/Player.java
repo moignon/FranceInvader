@@ -51,12 +51,12 @@ class Player extends Entite {
                 { 
                     case "haut":
                     {
-                        this.fire(armeEquipee);
+
                         break;
                     }
                     case "bas" : 
                     {
-                        this.fire(armeSecondaire);
+
                         break;
                     }
                     case "droite" :
@@ -69,7 +69,18 @@ class Player extends Entite {
                        this.setXspeed(-7);
                        break;
                     }
-                
+                    case "tir1" :
+                    {
+                         this.fire(armeEquipee);
+                        break;
+                    }
+                    case "tir2" :
+                    {
+                       this.fire(armeSecondaire);
+                       break;
+                    }
+                    default :
+                   
                 }
                           
             }
@@ -83,13 +94,23 @@ class Player extends Entite {
 
     public void loadKeymap(String param)
     {
+        int i = 0;
+        
         keymap = new String[256];
+        while (i < keymap.length)
+        {
+            keymap[i] = "";
+            i++;
+        }
+        
         if(param == "Defaut")
         {
             keymap[java.awt.event.KeyEvent.VK_UP] = "haut";
             keymap[java.awt.event.KeyEvent.VK_DOWN] = "bas";
             keymap[java.awt.event.KeyEvent.VK_LEFT] = "gauche";
             keymap[java.awt.event.KeyEvent.VK_RIGHT] = "droite";
+            keymap[java.awt.event.MouseEvent.BUTTON1] = "tir1";
+            keymap[java.awt.event.MouseEvent.BUTTON2] = "tir2";
         }
         else
         {
