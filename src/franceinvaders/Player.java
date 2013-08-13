@@ -70,12 +70,11 @@ class Player extends Entite {
     
     @Override
     public void codeMe() {
-
-        
-        
         int i = 0;
+        
+        this.setAngle(this.pos.orientToVector(panel.getMouseVector()));
+        
         speedVector.setXY(0, 0);
-
         while(i < keys.length)
         {
             if(keys[i])
@@ -84,22 +83,22 @@ class Player extends Entite {
                 { 
                     case "haut":
                     {
-                        setYspeed(-7);
+                        speedVector.setY(-7);
                         break;
                     }
                     case "bas" : 
                     {
-                        setYspeed(7);
+                        speedVector.setY(7);
                         break;
                     }
                     case "droite" :
                     {
-                        this.setXspeed(7);
+                         speedVector.setX(7);
                         break;
                     }
                     case "gauche" :
                     {
-                       this.setXspeed(-7);
+                       speedVector.setX(-7);
                        break;
                     }
                     case "tir1" :
@@ -120,9 +119,10 @@ class Player extends Entite {
         
         if(controlMode == 1)
         {
-            speedVector.rotate(this.angle);  
+            speedVector.rotate(this.getAngle());  
         }
-    
+        this.setXspeed((int) speedVector.getX());
+        this.setYspeed((int) speedVector.getY());
     }
    
 }
