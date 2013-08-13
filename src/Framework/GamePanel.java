@@ -254,7 +254,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     
     @Override
     public void mouseMoved(MouseEvent e) {
-        mousePos.setXY(e.getXOnScreen(), e.getYOnScreen());
+        mousePos.setXY(e.getX(), e.getY());
     }
     
     @Override
@@ -318,4 +318,8 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
             keys[i] = false;
     }
     
+    public Vector getMouseVector()
+    {
+        return (mousePos);
+    }
 }
