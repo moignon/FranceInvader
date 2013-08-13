@@ -4,6 +4,8 @@
  */
 package Math2d;
 
+import java.lang.Math;
+
 /**
  *
  * @author bob
@@ -44,9 +46,29 @@ public class Vector {
         this.y = yIn;
     }
     
+     public void addX(double xIn)
+    {
+        this.x += xIn;
+    }
+    
+    public void addY(double yIn)
+    {
+        this.y += yIn;
+    } 
+    
     public void rotate(double angle)
     {
         
         
+    }
+    
+    public double orientToVector(Vector target)
+    {
+        double angle = 0;
+        Vector calcul = new Vector(0,0);
+        
+        calcul.setXY(target.getX() - this.x,target.getY() - this.y);
+        angle = - (Math.atan2(calcul.getX(),calcul.getY()));
+        return (angle);
     }
 }
