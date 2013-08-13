@@ -14,6 +14,7 @@ import franceinvaders.ProjectilesEntites.Projectile;
 import franceinvaders.Weapons.DaddyBoom;
 import franceinvaders.Weapons.TirSimple;
 import java.util.ArrayList;
+import Math2d.Vector;
 
 /**
  *
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 class Player extends Entite {
     private boolean []keys;
     private String []keymap;
+    private int controlMode = 0;
+    private Vector speedVector = new Vector(0,0);
     Weapon armeEquipee,armeSecondaire;
     
     public Player(Sprite sprite,GamePanel panel) {
@@ -71,8 +74,8 @@ class Player extends Entite {
         
         
         int i = 0;
-        this.setXspeed(0);
-        this.setYspeed(0);
+        speedVector.setXY(0, 0);
+
         while(i < keys.length)
         {
             if(keys[i])
@@ -113,8 +116,14 @@ class Player extends Entite {
                 }
             }
             i++;
-           
         }
+        
+        if(controlMode == 1)
+        {
+            speedVector.rotate(this.angle);  
+        }
+    
     }
    
 }
+
