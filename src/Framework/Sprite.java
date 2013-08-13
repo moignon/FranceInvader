@@ -39,6 +39,10 @@ public class Sprite {
     }
     
     public void drawRotate(Graphics2D g,double _x, double _y, double angle){
+        if (angle == 0){
+            this.draw(g, (int)_x , (int)_y);
+            return;
+        }
         g.rotate(angle, _x , _y);
         g.drawImage(getImage(), (int)_x , (int)_y , null);
         g.rotate(-angle, _x , _y);

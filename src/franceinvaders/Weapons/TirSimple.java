@@ -29,8 +29,8 @@ public class TirSimple implements Weapon {
                y = e.getY();
         dernierTir = System.currentTimeMillis();
         Projectile tir;
-        tir= new Flamme(new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 ), e.getPanel());
-        tir.setCenteredPostion(e.getX()+ e.getL()/2, e.getY());
+        tir = new Flamme(new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 ), e.getPanel());
+        tir.setPosition((int)e.getX(), (int)e.getY());
         tir.setYspeed(0);
         tir.setYspeed(-10);
         e.getPanel().add(tir);

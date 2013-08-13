@@ -50,7 +50,7 @@ public class Level1 extends GamePanel {
 //        SpriteFlamme = ImageBank.get().getSprite(Constantes.flammeRef,1,4,10);
         
         player1 = new Player(sPlayer, this);
-        player1.setCenteredPostion(this.getWIDTH()/2, this.getHEIGHT()- player1.h);
+        player1.setPosition(this.getWIDTH()/2,this.getHEIGHT()- player1.h);
         
         Entite Vague = VagueAsteroid.createVagueAsteroid(this);
         this.getListEntite().add(Vague);

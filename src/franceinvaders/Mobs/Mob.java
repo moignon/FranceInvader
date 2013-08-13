@@ -80,7 +80,7 @@ public abstract class Mob extends Entite{
         this.panel.addScore(this.points);
         this.panel.getListEntite().remove(this);
         Explosion exp = new Explosion(this.panel);
-        exp.setCenteredPostion(x, y);
+        exp.setPosition(getX(), getY());
         this.panel.getListEntite().add(exp);
     }
     

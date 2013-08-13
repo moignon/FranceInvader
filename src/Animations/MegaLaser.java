@@ -40,7 +40,7 @@ public class MegaLaser extends Entite {
         yBase = ((LaserSprite)sprite).hauteur;
         xPos = 900 +  xBase*8/10;
         yPos = (int)p.getY()-50;
-        this.setPostion(xPos, yPos);
+        this.setPosition(xPos, yPos);
 
         panel.add(this);
         ((LaserSprite)this.sprite).init(this);
@@ -72,7 +72,7 @@ public class MegaLaser extends Entite {
                yPos = (int) this.getY(); 
                needInit = false;
             }
-            this.setCenteredPostion(xPos+xBase/2, yPos+yBase/2);
+            this.setPosition(xPos+xBase/2, yPos+yBase/2);
             
             s.opacity = s.opacity - 0.03f;
             if (s.opacity < 0) {
@@ -82,7 +82,7 @@ public class MegaLaser extends Entite {
             }
         }
         else
-            this.setPostion( xBase + xPos - s.largeur, yBase + yPos - s.hauteur/2);
+            this.setPosition( xBase + xPos - s.largeur, yBase + yPos - s.hauteur/2);
     }
 
     boolean isDone() {

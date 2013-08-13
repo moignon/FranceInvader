@@ -29,17 +29,17 @@ public class TriBlaster implements Weapon {
         dernierTir = System.currentTimeMillis();
         Projectile[] tirs = new Projectile[3];
         tirs[0] = new Flamme(new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 ), e.getPanel());
-        tirs[0].setCenteredPostion(e.getX()+ e.getL()/2, e.getY());
+        tirs[0].setPosition(e.getX(), e.getY() - e.getH()*3/4);
         tirs[0].setXspeed(0);
         tirs[0].setYspeed(-25);
         
         tirs[1] = new Flamme(new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 ), e.getPanel());
-        tirs[1].setCenteredPostion(e.getX()+30+ e.getL()/2, e.getY()+30);
+        tirs[1].setPosition(e.getX()+30, e.getY()+30 - e.getH()*3/4);
         tirs[1].setXspeed(2);
         tirs[1].setYspeed(-25);
         
         tirs[2] = new Flamme(new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 ), e.getPanel());
-        tirs[2].setCenteredPostion(e.getX()-30+ e.getL()/2, e.getY()+30);
+        tirs[2].setPosition(e.getX()-30, e.getY()+30 - e.getH()*3/4);
         tirs[2].setXspeed(-2);
         tirs[2].setYspeed(-25);
         

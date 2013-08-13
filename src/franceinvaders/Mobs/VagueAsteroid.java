@@ -44,7 +44,7 @@ public class VagueAsteroid extends Psy {
         for (int j=30 ; j <= nbLignes*ecartLigne; j+=ecartLigne){
             for (int i=dG ; i <nbColonnes*ecartColonne+dG; i+=ecartColonne){
                 Psy psy = new Psy (panel);
-                psy.setPostion(i,j);
+                psy.setPosition(i,j);
                 Psys.add(psy);
             }
         }
@@ -85,7 +85,7 @@ public class VagueAsteroid extends Psy {
                 setXspeed(vitesseActuelle);
             }
             else{
-                pixelsDescendus += this.ySpeed;
+                pixelsDescendus += getYspeed();
             }  
         }
         //si on ne descend pas
@@ -108,7 +108,7 @@ public class VagueAsteroid extends Psy {
     }
     @Override
     public void setXspeed(int speed) {
-        this.xSpeed = speed;
+        this.speed.setX(speed);
         droite = speed>0;
         gauche = speed<0;
         for(int i = 0; i < Psys.size(); i ++){
@@ -117,7 +117,7 @@ public class VagueAsteroid extends Psy {
     }
     @Override
     public void setYspeed(int speed){
-        this.ySpeed = speed;
+        this.speed.setY(speed);
         bas = speed>0;
         haut = speed<0;
         for(int i = 0; i < Psys.size(); i ++){
@@ -127,7 +127,6 @@ public class VagueAsteroid extends Psy {
     
     @Override
     public boolean collidesWith(Entite e){
-        System.out.println("touché");
         Boolean hit = false;
         for(int i = 0; i < Psys.size(); i ++){
             if (Psys.get(i).collidesWith(e)){

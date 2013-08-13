@@ -14,10 +14,6 @@ import Math2d.Vector;
  */
 public abstract class Entite {
     
-    /* A REMPLACER PAR DES VECTEURS */
-    protected double xSpeed, ySpeed; //(pixel/frame)
-    protected double x,y;
-    /* -----------------------------------------------*/
     protected Vector speed = new Vector(0,0);
     protected Vector pos = new Vector(0,0);
     
@@ -63,7 +59,8 @@ public abstract class Entite {
     public void blit(Graphics2D gBuffer) {
         if (active)
             if (visible)
-                sprite.drawRotate(gBuffer, pos.getX(),pos.getY(), angle);
+                sprite.drawRotate(gBuffer, pos.getX()- this.getL()/2,pos.getY()-getH()/2, angle);
+                gBuffer.fillOval((int)pos.getX(), (int)pos.getY(), 2, 2);
     }    
     public int getH (){
         return this.h;
@@ -71,11 +68,8 @@ public abstract class Entite {
     public int getL (){
         return this.l;
     }
-    public void setPostion (int _x, int _y){
+    public void setPosition (double _x, double _y){
         pos.setXY(_x, _y);
-    }
-    public void setCenteredPostion (double _x, double _y){
-        pos.setXY(_x - sprite.getWidth()/2,_y - sprite.getHeight()/2 );
     }
     public double getX() {
         return pos.getX();

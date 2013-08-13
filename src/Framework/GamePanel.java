@@ -259,6 +259,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     
     @Override
     public void mouseDragged(MouseEvent e) {
+        mousePos.setXY(e.getX(), e.getY());
     }
         
     public void remove(Entite e){
