@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import Math2d.Vector;
+import java.awt.Color;
 /**
  *
  * @author John
@@ -32,6 +33,7 @@ public abstract class Entite {
     private Graphics2D g2d;
     private CollisionBox collisionBox;
     protected GamePanel panel;
+    private boolean debugMode = true;
     
    
     public Entite (Sprite _sprite,GamePanel _panel){
@@ -58,9 +60,20 @@ public abstract class Entite {
     
     public void blit(Graphics2D gBuffer) {
         if (active)
-            if (visible)
+            if (visible){
                 sprite.drawRotate(gBuffer, pos.getX()- this.getL()/2,pos.getY()-getH()/2, angle);
-                gBuffer.fillOval((int)pos.getX(), (int)pos.getY(), 2, 2);
+                if(debugMode){
+                    Color col = gBuffer.getColor();
+                    gBuffer.setColor(Color.RED);
+                    gBuffer.fillOval((int)pos.getX(), (int)pos.getY(), 2, 2); 
+                    Rectangle r = this.getCollisionBox();
+                    gBuffer.drawRect((int)r.getX(), (int)r.getY(), r.width, r.height);
+                    gBuffer.setColor(col);
+                }
+                
+                
+            }
+        
     }    
     public int getH (){
         return this.h;
@@ -94,7 +107,7 @@ public abstract class Entite {
         return (pos);
     }
     public CollisionBox getCollisionBox (){
-       this.collisionBox.setLocation((int)this.pos.getX(), (int)this.pos.getY());
+       this.collisionBox.setLocation((int)this.pos.getX()-this.l/2, (int)this.pos.getY()-this.h/2);
        return this.collisionBox;
     }
     

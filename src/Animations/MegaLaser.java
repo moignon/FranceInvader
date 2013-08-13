@@ -45,6 +45,12 @@ public class MegaLaser extends Entite {
         panel.add(this);
         ((LaserSprite)this.sprite).init(this);
     }
+    
+    @Override
+    public void blit(Graphics2D gBuffer) {
+        super.blit(gBuffer);
+        LaserSprite s = (LaserSprite) this.sprite;
+    }
 
     @Override
     public void codeMe() {
@@ -95,7 +101,8 @@ public class MegaLaser extends Entite {
         CollisionBox col;
         LaserSprite s = (LaserSprite) this.sprite;
         col = new CollisionBox();
-        col.setBounds(new Rectangle(0, (int)this.getY() + s.hauteur * 1/4, panel.getWIDTH(), (int)this.getY() + s.hauteur * 3/4));
+        col.setBounds(0, (int)this.getY() - s.hauteur * 1/4, panel.getWIDTH(), s.hauteur * 2/4);
+        
        return col;
     }
     
@@ -142,8 +149,7 @@ class LaserSprite extends Sprite {
     public void draw (Graphics2D g,double _x, double _y){
         g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
         g.drawImage(getImage(), (int)_x , (int)_y ,largeur, hauteur, null);
-        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-        
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));     
     }
     
     public int getWidth(){

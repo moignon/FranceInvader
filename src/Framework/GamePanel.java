@@ -189,6 +189,10 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
         
         blitEntites ();
         //draw all the Sprites
+        
+        
+        //draw the cursor
+        gBuffer.drawOval((int)mousePos.getX()-10, (int)mousePos.getY()-10, 20, 20);
 
         gBuffer.setFont(new Font(null,20,20));
         gBuffer.drawString("FPS :"+ fps, 50, 50);

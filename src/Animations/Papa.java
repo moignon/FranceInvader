@@ -38,6 +38,7 @@ public class Papa extends Entite {
         setXspeed(-5);
         setYspeed(3);
         setPosition(panel.getWIDTH(), 0);
+        System.err.print(getL());
         
     }
 
@@ -50,7 +51,7 @@ public class Papa extends Entite {
         dTime = currentTime - lastTime;
         
         if(steps[0]){
-            if (this.getX()<panel.getWIDTH()- s.getWidth()*3/4){
+            if (this.getX()-getL()/3 <panel.getWIDTH()- s.getWidth()*3/4){
                 setXspeed(0);
                 setYspeed(5);
                 steps[0] = false;
