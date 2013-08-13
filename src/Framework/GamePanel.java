@@ -16,19 +16,18 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 import franceinvaders.FranceInvaders;
 import java.awt.Frame;
-import java.util.Vector;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
+import Math2d.Vector;
 
 public abstract class GamePanel extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener{
     
     
     
-    protected double mouseX = 0;
-    protected double mouseY = 0;
+    protected Vector mousePos = new Vector(0,0);
     protected boolean [] keys = new boolean[256];
     protected boolean downKey = false;
     protected boolean upKey = false;
@@ -255,8 +254,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     
     @Override
     public void mouseMoved(MouseEvent e) {
-        mouseX = e.getXOnScreen();
-        mouseY = e.getYOnScreen();
+        mousePos.setXY(e.getXOnScreen(), e.getYOnScreen());
     }
     
     @Override
