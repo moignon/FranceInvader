@@ -8,6 +8,7 @@ import franceinvaders.Weapons.Weapon;
 import Framework.Entite;
 import Framework.GamePanel;
 import Framework.Sprite;
+import franceinvaders.Mobs.Mob;
 import franceinvaders.ProjectilesEntites.Flamme;
 import franceinvaders.ProjectilesEntites.Projectile;
 import franceinvaders.Weapons.DaddyBoom;
@@ -19,7 +20,6 @@ import java.util.ArrayList;
  * @author John
  */
 class Player extends Entite {
-    private GamePanel gamePanel;
     private boolean []keys;
     private String []keymap;
     Weapon armeEquipee,armeSecondaire;
@@ -29,20 +29,50 @@ class Player extends Entite {
         this.angle = 0;
         this.armeEquipee = new TirSimple();
         this.armeSecondaire = new DaddyBoom();
+        keys = panel.getKeys();
         loadKeymap("Defaut");
     }
     
-    public void setGamePannel(GamePanel panel)
-    {
-        gamePanel = panel;
-        keys = gamePanel.getKeys();
+    public void fire (Weapon arme){
+        arme.Fire(this);
     }
-    
-    public void getInput()
+
+    public void loadKeymap(String param)
     {
+        
         int i = 0;
         
+        keymap = new String[256];
+        while (i < keymap.length)
+        {
+            keymap[i] = "";
+            i++;
+        }
+        
+        if(param == "Defaut")
+        {
+            keymap[java.awt.event.KeyEvent.VK_UP] = "haut";
+            keymap[java.awt.event.KeyEvent.VK_DOWN] = "bas";
+            keymap[java.awt.event.KeyEvent.VK_LEFT] = "gauche";
+            keymap[java.awt.event.KeyEvent.VK_RIGHT] = "droite";
+            keymap[java.awt.event.MouseEvent.BUTTON1] = "tir1";
+            keymap[java.awt.event.MouseEvent.BUTTON3] = "tir2";
+        }
+        else
+        {
+            // charger a partir d'un fichier , d'adresse param gogogogo noob
+        }
+        
+    }
+    
+    @Override
+    public void codeMe() {
+
+        
+        
+        int i = 0;
         this.setXspeed(0);
+        this.setYspeed(0);
         while(i < keys.length)
         {
             if(keys[i])
@@ -51,12 +81,12 @@ class Player extends Entite {
                 { 
                     case "haut":
                     {
-                       
+                        setYspeed(-7);
                         break;
                     }
                     case "bas" : 
                     {
-                       
+                        setYspeed(7);
                         break;
                     }
                     case "droite" :
@@ -80,46 +110,11 @@ class Player extends Entite {
                        break;
                     }
                     default :
-                   
                 }
-                          
             }
             i++;
+           
         }
     }
-    
-    public void fire (Weapon arme){
-        arme.Fire(this);
-    }
-
-    public void loadKeymap(String param)
-    {
-        int i = 0;
-        
-        keymap = new String[256];
-        while (i < keymap.length)
-        {
-            keymap[i] = "";
-            i++;
-        }
-        
-        if(param == "Defaut")
-        {
-            keymap[java.awt.event.KeyEvent.VK_UP] = "haut";
-            keymap[java.awt.event.KeyEvent.VK_DOWN] = "bas";
-            keymap[java.awt.event.KeyEvent.VK_LEFT] = "gauche";
-            keymap[java.awt.event.KeyEvent.VK_RIGHT] = "droite";
-            keymap[java.awt.event.MouseEvent.BUTTON1] = "tir1";
-            keymap[java.awt.event.MouseEvent.BUTTON2] = "tir2";
-        }
-        else
-        {
-            // charger a partir d'un fichier , d'adresse param gogogogo noob
-        }
-    }
-    
-    @Override
-    public void codeMe() {
-    }
-    
+   
 }

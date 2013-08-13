@@ -39,7 +39,7 @@ public class Level1 extends GamePanel {
     Sprite SpriteFlamme;
     SpriteAnime sPlayer;
     
-    Boolean firestVagueOff = false;
+    Boolean firstVagueOff = false;
    
     public Level1() {
         super();
@@ -50,7 +50,6 @@ public class Level1 extends GamePanel {
 //        SpriteFlamme = ImageBank.get().getSprite(Constantes.flammeRef,1,4,10);
         
         player1 = new Player(sPlayer, this);
-        player1.setGamePannel(this);
         player1.setCenteredPostion(this.getWIDTH()/2, this.getHEIGHT()- player1.h);
         
         Entite Vague = VagueAsteroid.createVagueAsteroid(this);
@@ -66,16 +65,13 @@ public class Level1 extends GamePanel {
     @Override
     public void gameUpdate(){
         
-        if (firestVagueOff){
+        if (firstVagueOff){
             double rand = Math.random();
             if (rand < 0.2){
                 jamel j = new jamel(this);
                 this.add(j);
             }
         }
-        
-        player1.getInput();
-    
         for(int i = 0; i<getListEntite().size(); i++){
             getListEntite().get(i).update();
         }
@@ -99,8 +95,9 @@ public class Level1 extends GamePanel {
     public void gameOver() {
         //this.setGameOverMessage("Bravo");
         //this.gameOver = true;
-        firestVagueOff = true;
+        firstVagueOff = true;
         //this.armeEquipee = new TriBlaster();
+        player1.armeEquipee = new TriBlaster();
         Entite Vague = VagueAsteroid.createVagueAsteroid(this);
         this.getListEntite().add(Vague);
     }

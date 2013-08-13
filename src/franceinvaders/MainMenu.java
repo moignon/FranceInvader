@@ -36,9 +36,8 @@ public class MainMenu extends GamePanel {
     public void gameUpdate(){
             background.update();
            
-            if(enter){
+            if(keys[java.awt.event.KeyEvent.VK_ENTER]){
                 launchLV(new Level1());
-                enter = false;
             }
         }
     public void launchLV(GamePanel level){

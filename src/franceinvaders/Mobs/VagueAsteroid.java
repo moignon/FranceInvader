@@ -127,6 +127,7 @@ public class VagueAsteroid extends Psy {
     
     @Override
     public boolean collidesWith(Entite e){
+        System.out.println("touché");
         Boolean hit = false;
         for(int i = 0; i < Psys.size(); i ++){
             if (Psys.get(i).collidesWith(e)){

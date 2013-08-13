@@ -67,6 +67,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
         readyToClose();
         addKeyListener(this);
         addMouseListener(this);
+        addMouseMotionListener(this);
         listEntite = new ArrayList <>();
         Boolean packed = false;
         GamePanel.currentTime = System.currentTimeMillis();
@@ -220,25 +221,11 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     
     @Override
     public void keyPressed(KeyEvent ke) {
-            if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_DOWN) downKey = true;
-            if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_UP) upKey = true;
-            if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_LEFT) leftKey = true;
-            if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_RIGHT) rightKey = true;
-            if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE) {
-                echap = true;
-                this.pauseGame();
-            }
-            if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) enter = true; 
-            keys[ke.getKeyCode()] = true;
+        if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE) this.pauseGame();
+        keys[ke.getKeyCode()] = true;
     }
     @Override
     public void keyReleased(KeyEvent ke) {
-        if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_DOWN)downKey = false;
-        if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_UP)upKey = false;
-        if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_LEFT)leftKey = false;
-        if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_RIGHT)rightKey = false;
-        if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE) echap = false;
-        if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) enter = false;
         keys[ke.getKeyCode()] = false;
     }
     @Override
@@ -247,7 +234,6 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     @Override
     public void mousePressed(MouseEvent e) {
         keys[e.getButton()] = true;
-        System.out.println("press");
     }
 
     @Override
@@ -330,13 +316,8 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
 
     public void initKeys()
     {
-        int i = 0;
-        
-        while(i < keys.length)
-        {
+        for (int i = 0 ; i < keys.length; i++)
             keys[i] = false;
-            i++;
-        }
     }
     
 }
