@@ -7,13 +7,20 @@ package Framework;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import Math2d.Vector;
 /**
  *
  * @author John
  */
 public abstract class Entite {
+    
+    /* A REMPLACER PAR DES VECTEURS */
     protected double xSpeed, ySpeed; //(pixel/frame)
     protected double x,y;
+    /* -----------------------------------------------*/
+    protected Vector speed = new Vector(0,0);
+    protected Vector pos = new Vector(0,0);
+    
     protected double angle = 0;
     
     boolean active = false;
@@ -36,19 +43,17 @@ public abstract class Entite {
         g2d = sprite.getImage().createGraphics();
         h = sprite.getHeight();
         l = sprite.getWidth();
-        this.x = 0;
-        this.y = 0;
         active = true ;
         visible = true;
         collisionBox = new CollisionBox();
-        collisionBox.setBounds(new Rectangle((int)x, (int)y, l, h));
+        collisionBox.setBounds(new Rectangle((int)pos.getX(), (int)pos.getY(), l, h));
         panel = _panel;
     }
     
     public void update (){
         if (active){
-            x+=xSpeed;
-            y+=ySpeed;
+            pos.addX(speed.getX());
+            pos.addY(speed.getY());
             codeMe();
             sprite.updateAnim();
          }
@@ -58,7 +63,7 @@ public abstract class Entite {
     public void blit(Graphics2D gBuffer) {
         if (active)
             if (visible)
-                sprite.draw(gBuffer, x, y);
+                sprite.drawRotate(gBuffer, pos.getX(),pos.getY(), angle);
     }    
     public int getH (){
         return this.h;
@@ -67,27 +72,35 @@ public abstract class Entite {
         return this.l;
     }
     public void setPostion (int _x, int _y){
-        x = _x;
-        y = _y;
+        pos.setXY(_x, _y);
     }
     public void setCenteredPostion (double _x, double _y){
-        x = _x - sprite.getWidth()/2;
-        y = _y - sprite.getHeight()/2;
+        pos.setXY(_x - sprite.getWidth()/2,_y - sprite.getHeight()/2 );
     }
     public double getX() {
-        return x;
+        return pos.getX();
     }
     public double getY() {
-        return y;
+        return pos.getY();
     }
     public double getXspeed() {
-        return xSpeed;
+        return speed.getX();
     }
     public double getYspeed() {
-        return ySpeed;
+        return speed.getY();
+    }
+    
+    public Vector getSpeedVector()
+    {
+        return (speed);
+    }
+    
+    public Vector getPosVector()
+    {
+        return (pos);
     }
     public CollisionBox getCollisionBox (){
-       this.collisionBox.setLocation((int)this.x, (int)this.y);
+       this.collisionBox.setLocation((int)this.pos.getX(), (int)this.pos.getY());
        return this.collisionBox;
     }
     
@@ -100,10 +113,10 @@ public abstract class Entite {
 //    public abstract void collisionDetected();
 
     public void setXspeed(int speed) {
-        this.xSpeed = speed;
+        this.speed.setX(speed);
     }
     public void setYspeed(int speed){
-        this.ySpeed = speed;
+        this.speed.setY(speed);
     }
 
     public GamePanel getPanel() {
@@ -111,7 +124,7 @@ public abstract class Entite {
     }
     
     public boolean isOutOfScreen() {
-        if( x < 0-getL() || x > panel.getWIDTH()+getL() || y < 0-getH() || y > panel.getHEIGHT()+getH())
+        if( pos.getX() < 0-getL() || pos.getX()> panel.getWIDTH()+getL() || pos.getY() < 0-getH() || pos.getY() > panel.getHEIGHT()+getH())
             return true;
         return false;
     }
@@ -123,7 +136,7 @@ public abstract class Entite {
     
     public double setAngle(double param)
     {
-        this.angle = param;
+        this.angle = param % 360;
         return this.angle;
     }
     
