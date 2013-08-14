@@ -46,6 +46,8 @@ public class MainMenu extends GamePanel {
         conteneur.add(level);
         conteneur.setVisible(true);
         audio.pause();
+        audio.interrupt();
+        audio = null;
         this.stopGame();
     }
 

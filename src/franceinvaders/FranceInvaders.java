@@ -16,7 +16,7 @@ public class FranceInvaders {
     /**
      * @param args the command line arguments
      */
-    public static JFrame jeu;
+    public static GameFrame jeu;
     public static void main(String[] args) {
         jeu = new GameFrame();
     }

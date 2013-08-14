@@ -23,6 +23,9 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
 import Math2d.Vector;
 import franceinvaders.Constantes;
+import franceinvaders.GameFrame;
+import franceinvaders.Level1;
+import franceinvaders.MainMenu;
 import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -128,8 +131,17 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
         previousTime = System.currentTimeMillis();
         while(running){
             if (!pause){
-                if (gameOver){
-                gameOverMessage(gBuffer);
+                if (gameOver){ 
+                    if (keys[java.awt.event.KeyEvent.VK_ENTER]){
+                        GameFrame conteneur = (GameFrame) franceinvaders.FranceInvaders.jeu;
+                            conteneur.remove(this);
+                            conteneur.setVisible(false);
+                            MainMenu m = new MainMenu(conteneur);
+                            conteneur.setVisible(true);
+                            audio.pause();
+                            this.stopGame();
+                   
+                    }
                 }
                 else{
                     if (keys[java.awt.event.KeyEvent.VK_F1]) devMode = !devMode;
