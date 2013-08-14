@@ -58,7 +58,11 @@ public class Vector {
     
     public void rotate(double angle)
     {
+        double x = -this.x;
+        double y = -this.y;
         
+        this.x = (x * Math.cos(angle)) - (y * Math.sin(angle));
+        this.y = (x * Math.sin(angle)) + (y * Math.cos(angle));
         
     }
     
@@ -69,6 +73,7 @@ public class Vector {
         
         calcul.setXY(target.getX() - this.x,target.getY() - this.y);
         angle = - (Math.atan2(calcul.getX(),calcul.getY()));
+        System.out.println(angle);
         return (angle);
     }
 }
