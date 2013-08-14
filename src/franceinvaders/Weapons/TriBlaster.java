@@ -30,18 +30,21 @@ public class TriBlaster implements Weapon {
         Projectile[] tirs = new Projectile[3];
         tirs[0] = new Flamme(new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 ), e.getPanel());
         tirs[0].setPosition(e.getX(), e.getY() - e.getH()*3/4);
-        tirs[0].setXspeed(0);
-        tirs[0].setYspeed(-25);
+        tirs[0].setAngle(e.getAngle());
+        tirs[0].getSpeedVector().setXY(0, -10);
+        tirs[0].getSpeedVector().rotate(tirs[0].getAngle());
         
         tirs[1] = new Flamme(new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 ), e.getPanel());
         tirs[1].setPosition(e.getX()+30, e.getY()+30 - e.getH()*3/4);
-        tirs[1].setXspeed(2);
-        tirs[1].setYspeed(-25);
+        tirs[1].setAngle(e.getAngle());
+        tirs[1].getSpeedVector().setXY(0, -10);
+        tirs[1].getSpeedVector().rotate(tirs[0].getAngle());
         
         tirs[2] = new Flamme(new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 ), e.getPanel());
         tirs[2].setPosition(e.getX()-30, e.getY()+30 - e.getH()*3/4);
-        tirs[2].setXspeed(-2);
-        tirs[2].setYspeed(-25);
+        tirs[2].setAngle(e.getAngle());
+        tirs[2].getSpeedVector().setXY(0, -10);
+        tirs[2].getSpeedVector().rotate(tirs[0].getAngle());
         
         for (int i =0; i < tirs.length; i ++){
             e.getPanel().add(tirs[i]);
