@@ -159,7 +159,7 @@ public class VagueAsteroid extends Psy {
 
     @Override
     public void dead() {
-        panel.gameOver();
+        panel.getListEntite().remove(this);
     }
     
     

@@ -49,7 +49,6 @@ public class MegaLaser extends Entite {
     @Override
     public void blit(Graphics2D gBuffer) {
         super.blit(gBuffer);
-        LaserSprite s = (LaserSprite) this.sprite;
     }
 
     @Override

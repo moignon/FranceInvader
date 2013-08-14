@@ -7,6 +7,7 @@ package Framework;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 /**
@@ -38,14 +39,25 @@ public class Sprite {
         g.drawImage(getImage(), (int)_x , (int)_y , null);
     }
     
+//    public void drawRotate(Graphics2D g,double _x, double _y, double angle){
+//        if (angle == 0){
+//            this.draw(g, (int)_x , (int)_y);
+//            return;
+//        }
+//        g.rotate(angle, _x , _y);
+//        g.drawImage(getImage(), (int)_x , (int)_y , null);
+//        g.rotate(-angle, _x , _y);
+//    }
+    
     public void drawRotate(Graphics2D g,double _x, double _y, double angle){
         if (angle == 0){
             this.draw(g, (int)_x , (int)_y);
             return;
         }
-        g.rotate(angle, _x , _y);
-        g.drawImage(getImage(), (int)_x , (int)_y , null);
-        g.rotate(-angle, _x , _y);
+        AffineTransform trans = new AffineTransform();
+        trans.translate(_x, _y);
+        trans.rotate(angle + Math.PI, this.getWidth()/2, this.getHeight()/2);
+        g.drawImage(getImage(), trans, null);
     }
 
 }

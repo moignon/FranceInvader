@@ -33,7 +33,6 @@ public abstract class Entite {
     private Graphics2D g2d;
     private CollisionBox collisionBox;
     protected GamePanel panel;
-    private boolean debugMode = true;
     
    
     public Entite (Sprite _sprite,GamePanel _panel){
@@ -50,9 +49,9 @@ public abstract class Entite {
     
     public void update (){
         if (active){
+            codeMe();
             pos.addX(speed.getX());
             pos.addY(speed.getY());
-            codeMe();
             sprite.updateAnim();
          }
     }
@@ -62,7 +61,7 @@ public abstract class Entite {
         if (active)
             if (visible){
                 sprite.drawRotate(gBuffer, pos.getX()- this.getL()/2,pos.getY()-getH()/2, angle);
-                if(debugMode){
+                if(panel.getDevMode()){
                     Color col = gBuffer.getColor();
                     gBuffer.setColor(Color.RED);
                     gBuffer.fillOval((int)pos.getX(), (int)pos.getY(), 2, 2); 
@@ -131,9 +130,10 @@ public abstract class Entite {
     }
     
     public boolean isOutOfScreen() {
-        if( pos.getX() < 0-getL() || pos.getX()> panel.getWIDTH()+getL() || pos.getY() < 0-getH() || pos.getY() > panel.getHEIGHT()+getH())
-            return true;
-        return false;
+        Boolean test = false;
+        if( pos.getX() < 0-getL()/2 || pos.getX()> panel.getWIDTH()+getL()/2 || pos.getY() < 0-getH()/2 || pos.getY() > panel.getHEIGHT()+getH()/2)
+            test = true;
+        return test;
     }
   
     public double getAngle()

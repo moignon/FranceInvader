@@ -8,6 +8,7 @@ import franceinvaders.Weapons.Weapon;
 import Framework.Entite;
 import Framework.GamePanel;
 import Framework.Sprite;
+import Framework.SpriteAnime;
 import franceinvaders.Mobs.Mob;
 import franceinvaders.ProjectilesEntites.Flamme;
 import franceinvaders.ProjectilesEntites.Projectile;
@@ -15,6 +16,8 @@ import franceinvaders.Weapons.DaddyBoom;
 import franceinvaders.Weapons.TirSimple;
 import java.util.ArrayList;
 import Math2d.Vector;
+import franceinvaders.ProjectilesEntites.Explosion;
+import java.awt.Graphics2D;
 
 /**
  *
@@ -70,10 +73,12 @@ class Player extends Entite {
     
     @Override
     public void codeMe() {
+        
+        SpriteAnime s = (SpriteAnime) this.sprite;
+        s.setAnim(0);
         int i = 0;
         
         this.setAngle(this.pos.orientToVector(panel.getMouseVector()));
-        
         speedVector.setXY(0, 0);
         while(i < keys.length)
         {
@@ -81,6 +86,17 @@ class Player extends Entite {
             {
                 switch (keymap[i])
                 { 
+                    
+                    case "droite" :
+                    {
+                        speedVector.setX(7);
+                        break;
+                    }
+                    case "gauche" :
+                    {
+                       speedVector.setX(-7);
+                       break;
+                    }
                     case "haut":
                     {
                         speedVector.setY(-7);
@@ -90,16 +106,6 @@ class Player extends Entite {
                     {
                         speedVector.setY(7);
                         break;
-                    }
-                    case "droite" :
-                    {
-                         speedVector.setX(7);
-                        break;
-                    }
-                    case "gauche" :
-                    {
-                       speedVector.setX(-7);
-                       break;
                     }
                     case "tir1" :
                     {
@@ -123,6 +129,32 @@ class Player extends Entite {
         }
         this.setXspeed((int) speedVector.getX());
         this.setYspeed((int) speedVector.getY());
+        
+        for (int j = 0; j < this.panel.getListEntite().size(); j++){
+            Entite e = this.panel.getListEntite().get(j);
+            if (e instanceof Mob) {
+                if (e.collidesWith(this)){
+                    
+                    this.dead();
+                    panel.gameOver();
+                    return;
+                }
+                
+            }
+        }
+    }
+    
+    @Override
+    public void blit (Graphics2D gBuffer){
+     super.blit(gBuffer);
+     if(panel.getDevMode())
+        gBuffer.drawLine((int)getX(), (int)getY(),(int)panel.getMouseVector().getX() ,(int) panel.getMouseVector().getY());
+    }
+
+    private void dead() {
+        Explosion exp = new Explosion(getPanel());
+        exp.setPosition(getX(), getY());
+        panel.add(exp);
     }
    
 }

@@ -38,7 +38,6 @@ public class Papa extends Entite {
         setXspeed(-5);
         setYspeed(3);
         setPosition(panel.getWIDTH(), 0);
-        System.err.print(getL());
         
     }
 

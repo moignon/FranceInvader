@@ -38,6 +38,7 @@ public class Level1 extends GamePanel {
     Mob  jamel, psy;
     Sprite SpriteFlamme;
     SpriteAnime sPlayer;
+    VagueAsteroid vague;
     
     Boolean firstVagueOff = false;
    
@@ -52,8 +53,8 @@ public class Level1 extends GamePanel {
         player1 = new Player(sPlayer, this);
         player1.setPosition(this.getWIDTH()/2,this.getHEIGHT()- player1.h);
         
-        Entite Vague = VagueAsteroid.createVagueAsteroid(this);
-        this.getListEntite().add(Vague);
+        vague = VagueAsteroid.createVagueAsteroid(this);
+        this.getListEntite().add(vague);
         
 
         
@@ -65,9 +66,17 @@ public class Level1 extends GamePanel {
     @Override
     public void gameUpdate(){
         
+        if (!getListEntite().contains(vague)){
+            firstVagueOff = true;
+            vague = VagueAsteroid.createVagueAsteroid(this);
+            getListEntite().add(vague);
+            player1.armeEquipee = new TriBlaster();
+        }
+        
         if (firstVagueOff){
+            
             double rand = Math.random();
-            if (rand < 0.2){
+            if (rand < 0.05){
                 jamel j = new jamel(this);
                 this.add(j);
             }
@@ -93,13 +102,8 @@ public class Level1 extends GamePanel {
     
     @Override
     public void gameOver() {
-        //this.setGameOverMessage("Bravo");
-        //this.gameOver = true;
-        firstVagueOff = true;
-        //this.armeEquipee = new TriBlaster();
-        player1.armeEquipee = new TriBlaster();
-        Entite Vague = VagueAsteroid.createVagueAsteroid(this);
-        this.getListEntite().add(Vague);
+        this.setGameOverMessage("Bravo Newb");
+        this.gameOver = true;
     }
     
     

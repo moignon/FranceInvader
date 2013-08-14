@@ -22,6 +22,10 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
 import Math2d.Vector;
+import franceinvaders.Constantes;
+import java.awt.Cursor;
+import java.awt.Point;
+import java.awt.Toolkit;
 
 public abstract class GamePanel extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener{
     
@@ -41,6 +45,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     private long frameRate = 1000/90;
     
     private Boolean running = false ;
+    private Boolean devMode = false;
     
     protected Graphics2D gBuffer;
     private BufferedImage buffer = null ;
@@ -127,6 +132,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
                 gameOverMessage(gBuffer);
                 }
                 else{
+                    if (keys[java.awt.event.KeyEvent.VK_F1]) devMode = !devMode;
                     gameUpdate();
                     gameRenderer ();
                 }
@@ -192,7 +198,8 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
         
         
         //draw the cursor
-        gBuffer.drawOval((int)mousePos.getX()-10, (int)mousePos.getY()-10, 20, 20);
+        Image viseur = ImageBank.get().getImages(Constantes.viseurRef);
+        gBuffer.drawImage(viseur, (int)mousePos.getX()-viseur.getWidth(this)/2, (int)mousePos.getY()-viseur.getHeight(this)/2, this);
 
         gBuffer.setFont(new Font(null,20,20));
         gBuffer.drawString("FPS :"+ fps, 50, 50);
@@ -225,7 +232,9 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     @Override
     public void keyPressed(KeyEvent ke) {
         if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE) this.pauseGame();
+     //   if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_F1) devMode = !devMode;
         keys[ke.getKeyCode()] = true;
+        
     }
     @Override
     public void keyReleased(KeyEvent ke) {
@@ -250,6 +259,9 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     
     @Override
     public void mouseEntered(MouseEvent e) {
+        BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+        Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
+        setCursor(blankCursor);
     }
     
     @Override
@@ -326,5 +338,13 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     public Vector getMouseVector()
     {
         return (mousePos);
+    }
+
+    public Boolean getDevMode() {
+        return devMode;
+    }
+
+    public void setDevMode(Boolean devMode) {
+        this.devMode = devMode;
     }
 }
