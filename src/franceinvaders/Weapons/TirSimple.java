@@ -32,7 +32,7 @@ public class TirSimple implements Weapon {
         tir = new Flamme(new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 ), e.getPanel());
         tir.setPosition((int)e.getX(), (int)e.getY());
         tir.setAngle(e.getAngle());
-        tir.getSpeedVector().setXY(0, -10);
+        tir.getSpeedVector().setXY(0, 10);
         tir.getSpeedVector().rotate(tir.getAngle());
         e.getPanel().add(tir);
     }
