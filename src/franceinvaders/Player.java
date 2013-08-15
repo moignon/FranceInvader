@@ -26,15 +26,19 @@ import java.awt.Graphics2D;
  * @author John
  */
 class Player extends Entite {
+    
+    Vector v;
     private boolean []keys;
     private String []keymap;
-    private int controlMode = 0;
-    private Vector speedVector = new Vector(0,0);
+    private int controlMode = 1;
+   // private Vector speedVector = new Vector(0,0);
     private double speed = 7.0 ;
+    SpriteAnime sprite;
     Weapon armeEquipee,armeSecondaire;
     
     public Player(Sprite sprite,GamePanel panel) {
         super(sprite, panel);
+        this.sprite = (SpriteAnime)super.sprite;
         this.angle = 0;
         this.armeEquipee = new TirSimple();
         this.armeSecondaire = new DaddyBoom();
@@ -76,75 +80,48 @@ class Player extends Entite {
     
     @Override
     public void codeMe() {
-        
-        SpriteAnime s = (SpriteAnime) this.sprite;
-        s.setAnim(0);
-        int i = 0;
-        
         this.setAngle(this.pos.orientToVector(panel.getMouseVector()));
-        speedVector.setXY(0, 0);
-        while(i < keys.length)
-        {
-            if(keys[i])
-            {
-                switch (keymap[i])
-                { 
-                    case "droite" :
-                    {
-                        moveLateral( this.controlMode,speed);
-                        break;
+        getSpeedVector().setXY(0, 0);
+        for (int i = 0; i < keys.length; i ++){
+            if(keys[i]){
+                switch (keymap[i]){ 
+                    case "droite" :{
+                        setXspeed(speed); break;
                     }
-                    case "gauche" :
-                    {
-                       moveLateral (this.controlMode, - speed); 
-                       break;
+                    case "gauche" :{
+                        setXspeed(-speed); break;
                     }
-                    case "haut":
-                    {
-                        speedVector.setY(-7);
-                        break;
+                    case "haut": {
+                        setYspeed( -speed); break;
                     }
-                    case "bas" : 
-                    {
-                        speedVector.setY(7);
-                        break;
+                    case "bas" : {
+                       setYspeed (speed); break;
                     }
-                    case "tir1" :
-                    {
-                         this.fire(armeEquipee);
-                        break;
+                    case "tir1" :{
+                         this.fire(armeEquipee); break;
                     }
-                    case "tir2" :
-                    {
-                       this.fire(armeSecondaire);
-                       break;
+                    case "tir2" : {
+                       this.fire(armeSecondaire); break;
                     }
                     default :
                 }
             }
-            i++;
         }
-        
+        v = new Vector(getXspeed(),getYspeed());
         if(controlMode == 1)
-        {
-            speedVector.rotate(this.getAngle());  
-        }
-        
-        this.setXspeed((int) speedVector.getX());
-        this.setYspeed((int) speedVector.getY());
+            getSpeedVector().rotate(this.getAngle()+Math.PI);  
         
         for (int j = 0; j < this.panel.getListEntite().size(); j++){
             Entite e = this.panel.getListEntite().get(j);
             if (e instanceof Mob) {
                 if (e.collidesWith(this)){
-                    
                     this.dead();
                     panel.gameOver();
                     return;
                 }
-                
             }
         }
+        chooseAnim();
     }
     
     @Override
@@ -159,13 +136,13 @@ class Player extends Entite {
         exp.setPosition(getX(), getY());
         panel.add(exp);
     }
-    private void moveLateral (int mode, double speed){
-        pos = pos.move(speed, panel.getMouseVector());
-    }
-    private void moveVertical (int mode, double speed){
-        Vector mouse = panel.getMouseVector();
-        Vector pos = this.pos;
-        Vector sommetRect = new Vector(mouse.getX(),mouse.getY());
+    private void chooseAnim (){
+        //sprite.setAnim(0);
+        if(v.getX() > 0)sprite.setAnim(1);
+        if(v.getX()< 0)sprite.setAnim(2);
+        
+        if(Math.abs(v.getX()) < (v.getY()))
+            sprite.setAnim(0);
     }
    
 }

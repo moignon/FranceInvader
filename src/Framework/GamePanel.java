@@ -34,7 +34,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     
     
     
-    protected Vector mousePos = new Vector(0,0);
+    protected Vector mousePos;
     protected boolean [] keys = new boolean[256];
     protected boolean downKey = false;
     protected boolean upKey = false;
@@ -78,6 +78,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
         listEntite = new ArrayList <>();
         Boolean packed = false;
         GamePanel.currentTime = System.currentTimeMillis();
+        mousePos = new Vector(WIDTH2/2,HEIGHT2/2);
         initKeys();
     }  
     public int getWIDTH (){
@@ -271,9 +272,9 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     
     @Override
     public void mouseEntered(MouseEvent e) {
-       // BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
-       // Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
-       // setCursor(blankCursor);
+        BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+        Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
+        setCursor(blankCursor);
     }
     
     @Override

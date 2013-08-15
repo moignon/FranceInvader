@@ -31,19 +31,19 @@ public class TriBlaster implements Weapon {
         tirs[0] = new Flamme(new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 ), e.getPanel());
         tirs[0].setPosition(e.getX(), e.getY() - e.getH()*3/4);
         tirs[0].setAngle(e.getAngle());
-        tirs[0].getSpeedVector().setXY(0, 10);
+        tirs[0].getSpeedVector().setXY(0, 30);
         tirs[0].getSpeedVector().rotate(tirs[0].getAngle());
         
         tirs[1] = new Flamme(new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 ), e.getPanel());
         tirs[1].setPosition(e.getX()+30, e.getY()+30 - e.getH()*3/4);
         tirs[1].setAngle(e.getAngle());
-        tirs[1].getSpeedVector().setXY(0, 10);
+        tirs[1].getSpeedVector().setXY(0, 30);
         tirs[1].getSpeedVector().rotate(tirs[0].getAngle());
         
         tirs[2] = new Flamme(new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 ), e.getPanel());
         tirs[2].setPosition(e.getX()-30, e.getY()+30 - e.getH()*3/4);
         tirs[2].setAngle(e.getAngle());
-        tirs[2].getSpeedVector().setXY(0, 10);
+        tirs[2].getSpeedVector().setXY(0, 30);
         tirs[2].getSpeedVector().rotate(tirs[0].getAngle());
         
         for (int i =0; i < tirs.length; i ++){

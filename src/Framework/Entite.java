@@ -69,10 +69,7 @@ public abstract class Entite {
                     gBuffer.drawRect((int)r.getX(), (int)r.getY(), r.width, r.height);
                     gBuffer.setColor(col);
                 }
-                
-                
             }
-        
     }    
     public int getH (){
         return this.h;
@@ -98,12 +95,12 @@ public abstract class Entite {
     
     public Vector getSpeedVector()
     {
-        return (speed);
+        return speed;
     }
     
     public Vector getPosVector()
     {
-        return (pos);
+        return pos;
     }
     public CollisionBox getCollisionBox (){
        this.collisionBox.setLocation((int)this.pos.getX()-this.l/2, (int)this.pos.getY()-this.h/2);
@@ -118,10 +115,10 @@ public abstract class Entite {
     public abstract void codeMe();
 //    public abstract void collisionDetected();
 
-    public void setXspeed(int speed) {
+    public void setXspeed(double speed) {
         this.speed.setX(speed);
     }
-    public void setYspeed(int speed){
+    public void setYspeed(double speed){
         this.speed.setY(speed);
     }
 

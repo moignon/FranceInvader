@@ -107,7 +107,7 @@ public class VagueAsteroid extends Psy {
         }
     }
     @Override
-    public void setXspeed(int speed) {
+    public void setXspeed(double speed) {
         this.speed.setX(speed);
         droite = speed>0;
         gauche = speed<0;
@@ -116,7 +116,7 @@ public class VagueAsteroid extends Psy {
         }
     }
     @Override
-    public void setYspeed(int speed){
+    public void setYspeed(double speed){
         this.speed.setY(speed);
         bas = speed>0;
         haut = speed<0;
