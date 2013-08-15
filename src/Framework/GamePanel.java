@@ -31,6 +31,18 @@ import java.awt.Point;
 import java.awt.Toolkit;
 
 public abstract class GamePanel extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener{
+
+    public long getCurrentTime() {
+        return currentTime;
+    }
+
+    public long getPreviousTime() {
+        return previousTime;
+    }
+
+    public long getdTime() {
+        return dTime;
+    }
     
     
     
@@ -60,7 +72,10 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     protected boolean pause;
     private ArrayList <Entite> listEntite;
     
-    public static long previousTime, dTime, sleepTime,currentTime;
+    private static long previousTime;
+    private static long dTime;
+    private static long sleepTime;
+    private static long currentTime;
     
     private int score = 0;
     
@@ -150,10 +165,10 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
                     gameRenderer ();
                 }
                 currentTime = System.currentTimeMillis();
-                dTime = currentTime - previousTime;
+                dTime = (getCurrentTime() - getPreviousTime());
                 
-                sleepTime = frameRate - dTime;
-                times[i] = dTime;
+                sleepTime = frameRate - getdTime();
+                times[i] = getdTime();
                 
                 long total = 0;
                 for(int j = 0; j < times.length; j++){
@@ -167,7 +182,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
                 if (sleepTime <=0) sleepTime = 5;
             
                 paintOnScreen ();
-                previousTime = currentTime;
+                previousTime = getCurrentTime();
             
                 try{
                     Thread.sleep(sleepTime);

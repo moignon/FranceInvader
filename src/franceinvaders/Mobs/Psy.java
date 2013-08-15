@@ -4,6 +4,8 @@
  */
 package franceinvaders.Mobs;
 
+import Framework.Collision;
+import Framework.Entite;
 import Framework.GamePanel;
 import Framework.Sprite;
 import Framework.ImageBank;
@@ -23,6 +25,11 @@ public class Psy extends Mob {
 
     @Override
     public void codeMe() {
+    }
+
+    @Override
+    public void collided(Entite s, Collision c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

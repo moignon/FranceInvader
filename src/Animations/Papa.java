@@ -4,6 +4,7 @@
  */
 package Animations;
 
+import Framework.Collision;
 import Framework.Entite;
 import Framework.GamePanel;
 import Framework.SpriteAnime;
@@ -90,5 +91,10 @@ public class Papa extends Entite {
         if (tir == null){
             tir = new MegaLaser(panel,this);
         }
+    }
+
+    @Override
+    public void collided(Entite s, Collision c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

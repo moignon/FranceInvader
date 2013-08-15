@@ -48,7 +48,7 @@ public class VagueAsteroid extends Psy {
                 Psys.add(psy);
             }
         }
-        baseTime =  GamePanel.currentTime;
+        baseTime =  panel.getCurrentTime();
     }
     
     public static VagueAsteroid createVagueAsteroid (GamePanel panel) {
@@ -61,7 +61,7 @@ public class VagueAsteroid extends Psy {
     
     @Override
     public void update (){
-        if (GamePanel.currentTime - baseTime > recoveryTime){
+        if (panel.getCurrentTime() - baseTime > recoveryTime){
             invulnerable = false;
             MobsTouché.clear();
         }

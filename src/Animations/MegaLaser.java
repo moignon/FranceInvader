@@ -4,6 +4,7 @@
  */
 package Animations;
 
+import Framework.Collision;
 import Framework.CollisionBox;
 import Framework.Entite;
 import Framework.GamePanel;
@@ -58,7 +59,6 @@ public class MegaLaser extends Entite {
             Entite e = this.panel.getListEntite().get(i);
             if (this.getCollisionBox().getHeight() < this.getPanel().getHEIGHT()){
              if (e instanceof Mob) {
-                
                  if (e.collidesWith(this)){
                      int dmg = ((Mob)e).getLifeMax();
                     ((Mob)e).takeDmg(dmg);
@@ -103,6 +103,11 @@ public class MegaLaser extends Entite {
         col.setBounds(0, (int)this.getY() - s.hauteur * 1/4, panel.getWIDTH(), s.hauteur * 2/4);
         
        return col;
+    }
+
+    @Override
+    public void collided(Entite s, Collision c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

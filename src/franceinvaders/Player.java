@@ -4,6 +4,7 @@
  */
 package franceinvaders;
 
+import Framework.Collision;
 import franceinvaders.Weapons.Weapon;
 import Framework.Entite;
 import Framework.GamePanel;
@@ -17,6 +18,7 @@ import franceinvaders.Weapons.TirSimple;
 import java.util.ArrayList;
 import Math2d.Vector;
 import franceinvaders.ProjectilesEntites.Explosion;
+import franceinvaders.Weapons.CashIcon;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -52,9 +54,7 @@ class Player extends Entite {
 
     public void loadKeymap(String param)
     {
-        
         int i = 0;
-        
         keymap = new String[256];
         while (i < keymap.length)
         {
@@ -120,6 +120,10 @@ class Player extends Entite {
                     return;
                 }
             }
+            if (e instanceof CashIcon){
+                if (this.collidesWith(e))
+                   e.collided(this, null);
+            }
         }
         chooseAnim();
     }
@@ -141,8 +145,12 @@ class Player extends Entite {
         if(v.getX() > 0)sprite.setAnim(1);
         if(v.getX()< 0)sprite.setAnim(2);
         
-        if(Math.abs(v.getX()) < (v.getY()))
+        if(Math.abs(v.getX()) <= Math.abs(v.getY()))
             sprite.setAnim(0);
+    }
+
+    @Override
+    public void collided(Entite s, Collision c) {
     }
    
 }

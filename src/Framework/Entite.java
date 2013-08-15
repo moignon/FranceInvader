@@ -110,8 +110,8 @@ public abstract class Entite {
     public boolean collidesWith(Entite e){
         return this.getCollisionBox().intersects(e.getCollisionBox());
     }
-//    public abstract void collided (Sprite s);
-//    public abstract void checkcollisions();
+    
+    public abstract void collided (Entite s, Collision c);
     public abstract void codeMe();
 //    public abstract void collisionDetected();
 

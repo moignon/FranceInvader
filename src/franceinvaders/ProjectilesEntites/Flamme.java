@@ -5,6 +5,8 @@
 package franceinvaders.ProjectilesEntites;
 
 import Framework.AudioPlayer;
+import Framework.Collision;
+import Framework.Entite;
 import Framework.GamePanel;
 import Framework.Sprite;
 import java.io.File;
@@ -29,6 +31,11 @@ public class Flamme extends Projectile {
     @Override
     public int getHitDmg() {
         return hitDmg;
+    }
+
+    @Override
+    public void collided(Entite s, Collision c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

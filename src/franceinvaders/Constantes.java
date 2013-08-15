@@ -19,6 +19,7 @@ public class Constantes {
                                    megaLaserRef = "laser.png",
                                    MainMenuBackgroundRef = "Launcher test 1.png",
                                    viseurRef = "viseur.png",
+                                   cashRef ="cashF.png",
                                    track1Ref = "ressource/audio/BreakALeg.wav";        
         public static final int  MoblifeMax = 4000;
 }

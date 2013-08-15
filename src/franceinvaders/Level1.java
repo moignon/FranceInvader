@@ -16,6 +16,7 @@ import franceinvaders.Mobs.VagueAsteroid;
 import franceinvaders.Mobs.jamel;
 import franceinvaders.ProjectilesEntites.Flamme;
 import Animations.Papa;
+import franceinvaders.Weapons.CashIcon;
 import franceinvaders.Weapons.DaddyBoom;
 import franceinvaders.Weapons.TirSimple;
 import franceinvaders.Weapons.TriBlaster;
@@ -53,8 +54,12 @@ public class Level1 extends GamePanel {
         player1 = new Player(sPlayer, this);
         player1.setPosition(this.getWIDTH()/2,this.getHEIGHT()- player1.h);
         
-        vague = VagueAsteroid.createVagueAsteroid(this);
-        this.getListEntite().add(vague);
+        CashIcon cash = new CashIcon (this);
+        cash.setPosition(getWIDTH()/2, getHEIGHT()/2);
+        getListEntite().add(cash);
+        
+        //vague = VagueAsteroid.createVagueAsteroid(this);
+       // this.getListEntite().add(vague);
         
 
         
@@ -66,21 +71,21 @@ public class Level1 extends GamePanel {
     @Override
     public void gameUpdate(){
         
-        if (!getListEntite().contains(vague)){
-            firstVagueOff = true;
-            vague = VagueAsteroid.createVagueAsteroid(this);
-            getListEntite().add(vague);
-            player1.armeEquipee = new TriBlaster();
-        }
-        
-        if (firstVagueOff){
-            
-            double rand = Math.random();
-            if (rand < 0.05){
-                jamel j = new jamel(this);
-                this.add(j);
-            }
-        }
+//        if (!getListEntite().contains(vague)){
+//            firstVagueOff = true;
+//            vague = VagueAsteroid.createVagueAsteroid(this);
+//            getListEntite().add(vague);
+//            player1.armeEquipee = new TriBlaster();
+//        }
+//        
+//        if (firstVagueOff){
+//            
+//            double rand = Math.random();
+//            if (rand < 0.05){
+//                jamel j = new jamel(this);
+//                this.add(j);
+//            }
+//        }
         for(int i = 0; i<getListEntite().size(); i++){
             getListEntite().get(i).update();
         }

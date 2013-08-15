@@ -4,10 +4,13 @@
  */
 package franceinvaders.Mobs;
 
+import Framework.Collision;
+import Framework.Entite;
 import Framework.GamePanel;
 import Framework.Sprite;
 import Framework.ImageBank;
 import franceinvaders.Constantes;
+import franceinvaders.Weapons.CashIcon;
 
 /**
  *
@@ -31,6 +34,23 @@ public class jamel extends Mob {
         
         if (this.isOutOfScreen()) {
             this.getPanel().remove(this);
+        }
+    }
+
+    @Override
+    public void collided(Entite s, Collision c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void takeDmg(int hitDmg) {
+        super.takeDmg(hitDmg);
+        
+        String ref = null;
+        if(getLife() <= 0){
+            CashIcon i = new CashIcon(getPanel());
+            i.setPosition(this.getX(), this.getY());
+            getPanel().getListEntite().add(i);
         }
     }
     
