@@ -143,7 +143,7 @@ public abstract class Entite {
     
     public double setAngle(double param)
     {
-        this.angle = param % 360;
+        this.angle = param;
         return this.angle;
     }
     
