@@ -17,6 +17,8 @@ import franceinvaders.Weapons.TirSimple;
 import java.util.ArrayList;
 import Math2d.Vector;
 import franceinvaders.ProjectilesEntites.Explosion;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 /**
@@ -28,6 +30,7 @@ class Player extends Entite {
     private String []keymap;
     private int controlMode = 0;
     private Vector speedVector = new Vector(0,0);
+    private double speed = 7.0 ;
     Weapon armeEquipee,armeSecondaire;
     
     public Player(Sprite sprite,GamePanel panel) {
@@ -86,15 +89,14 @@ class Player extends Entite {
             {
                 switch (keymap[i])
                 { 
-                    
                     case "droite" :
                     {
-                        speedVector.setX(7);
+                        moveLateral( this.controlMode,speed);
                         break;
                     }
                     case "gauche" :
                     {
-                       speedVector.setX(-7);
+                       moveLateral (this.controlMode, - speed); 
                        break;
                     }
                     case "haut":
@@ -127,6 +129,7 @@ class Player extends Entite {
         {
             speedVector.rotate(this.getAngle());  
         }
+        
         this.setXspeed((int) speedVector.getX());
         this.setYspeed((int) speedVector.getY());
         
@@ -155,6 +158,14 @@ class Player extends Entite {
         Explosion exp = new Explosion(getPanel());
         exp.setPosition(getX(), getY());
         panel.add(exp);
+    }
+    private void moveLateral (int mode, double speed){
+        pos = pos.move(speed, panel.getMouseVector());
+    }
+    private void moveVertical (int mode, double speed){
+        Vector mouse = panel.getMouseVector();
+        Vector pos = this.pos;
+        Vector sommetRect = new Vector(mouse.getX(),mouse.getY());
     }
    
 }

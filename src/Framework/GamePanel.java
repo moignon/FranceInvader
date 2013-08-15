@@ -271,9 +271,9 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     
     @Override
     public void mouseEntered(MouseEvent e) {
-        BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
-        Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
-        setCursor(blankCursor);
+       // BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+       // Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
+       // setCursor(blankCursor);
     }
     
     @Override
