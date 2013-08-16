@@ -13,6 +13,7 @@ import franceinvaders.Constantes;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
@@ -25,12 +26,12 @@ import java.util.logging.Logger;
  */
 public class CashIcon extends Entite {
     
-    private int score = 200,
+    private int score = 2000,
                 Xtext = 0,
                 Ytext = 0;
     boolean hit = false;
     String text = score+ " Frs!";
-    long animTime = 2000; // ms
+    long animTime = 1000; // ms
     long waitTime = 0;
     Color[]colors = new Color[3];
     int couleurActuelle = 0;
@@ -70,9 +71,10 @@ public class CashIcon extends Entite {
         else{
             Color c = gBuffer.getColor();
             gBuffer.setColor(colors[couleurActuelle]);
-            Font font = new Font(null, 0, 25);
+            Font font = new Font(null, 0, 20);
             gBuffer.setFont( font);
-            gBuffer.drawString(text, (int)(getX() - (text.length()/2*10)), (int)getY());
+            FontMetrics fm = gBuffer.getFontMetrics();
+            gBuffer.drawString(text, (int)(getX() - (fm.stringWidth(text))/2), (int)getY());
             gBuffer.setColor(c);
         }
     }

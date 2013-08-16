@@ -25,11 +25,14 @@ public class Psy extends Mob {
 
     @Override
     public void codeMe() {
+        if(this.getY()+this.getH()/2 >= getPanel().getHEIGHT()){
+            getPanel().gameOver();
+        }
     }
 
     @Override
     public void collided(Entite s, Collision c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
 }

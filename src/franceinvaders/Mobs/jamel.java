@@ -20,7 +20,7 @@ public class jamel extends Mob {
     
     
     public jamel (GamePanel panel){
-        super(new Sprite(ImageBank.get().getImages(Constantes.jamelRef)),panel, 40,1000);
+        super(new Sprite(ImageBank.get().getImages(Constantes.jamelRef)),panel, 10,1000);
         this.setPosition(0-sprite.getWidth(), 0-sprite.getWidth());
         this.setPosition(Math.random()*panel.getWIDTH() % panel.getWIDTH() - this.getL() / 2, 0 - this.getH()/2 + 1);
         this.setXspeed((int) (Math.random()*10) - 5);
@@ -46,11 +46,16 @@ public class jamel extends Mob {
     public void takeDmg(int hitDmg) {
         super.takeDmg(hitDmg);
         
-        String ref = null;
+        
         if(getLife() <= 0){
-            CashIcon i = new CashIcon(getPanel());
-            i.setPosition(this.getX(), this.getY());
-            getPanel().getListEntite().add(i);
+            if(Math.random()<0.1){
+                CashIcon i = new CashIcon(getPanel());
+                i.setPosition(this.getX(), this.getY());
+                i.setYspeed(2);
+                i.setScore(2000);
+                getPanel().getListEntite().add(i);   
+            }
+            
         }
     }
     

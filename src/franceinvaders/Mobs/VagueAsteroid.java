@@ -147,7 +147,6 @@ public class VagueAsteroid extends Psy {
             Mob MobTouché = MobsTouché.get(i);
             MobTouché.takeDmg(hitDmg);
             if (MobTouché.getLife() <= 0){
-                MobTouché.dead();
                 Psys.remove(MobTouché);
                 wait = false;
             }

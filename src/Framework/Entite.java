@@ -50,8 +50,9 @@ public abstract class Entite {
     public void update (){
         if (active){
             codeMe();
-            pos.addX(speed.getX());
-            pos.addY(speed.getY());
+            move();
+//       
+            
             sprite.updateAnim();
          }
     }
@@ -142,6 +143,11 @@ public abstract class Entite {
     {
         this.angle = param;
         return this.angle;
+    }
+
+    public void move() {
+        pos.addX(speed.getX());
+        pos.addY(speed.getY());
     }
     
 

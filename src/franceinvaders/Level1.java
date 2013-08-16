@@ -19,6 +19,7 @@ import Animations.Papa;
 import franceinvaders.Weapons.CashIcon;
 import franceinvaders.Weapons.DaddyBoom;
 import franceinvaders.Weapons.TirSimple;
+import franceinvaders.Weapons.Tourbilol;
 import franceinvaders.Weapons.TriBlaster;
 import franceinvaders.Weapons.Weapon;
 import java.awt.Font;
@@ -40,8 +41,10 @@ public class Level1 extends GamePanel {
     Sprite SpriteFlamme;
     SpriteAnime sPlayer;
     VagueAsteroid vague;
+    CashIcon cash;
     
     Boolean firstVagueOff = false;
+    boolean cashh = false;
    
     public Level1() {
         super();
@@ -53,13 +56,23 @@ public class Level1 extends GamePanel {
         
         player1 = new Player(sPlayer, this);
         player1.setPosition(this.getWIDTH()/2,this.getHEIGHT()- player1.h);
+        player1.armeEquipee = new Tourbilol();
         
-        CashIcon cash = new CashIcon (this);
+        cash = new CashIcon (this);
         cash.setPosition(getWIDTH()/2, getHEIGHT()/2);
         getListEntite().add(cash);
         
-        //vague = VagueAsteroid.createVagueAsteroid(this);
-       // this.getListEntite().add(vague);
+//        jamel j = new jamel(this);
+//        j.setPosition(200, 500);
+//        j.setXspeed(0);
+//        j.setYspeed(0);
+        
+//        Psy p = new Psy(this);
+//        p.setPosition(500, 500);
+//        getListEntite().add(p);
+        
+//        vague = VagueAsteroid.createVagueAsteroid(this);
+//        this.getListEntite().add(vague);
         
 
         
@@ -70,22 +83,25 @@ public class Level1 extends GamePanel {
             
     @Override
     public void gameUpdate(){
+        if (!getListEntite().contains(cash)){
+            if (firstVagueOff == false && !getListEntite().contains(vague) && !cashh){
+                vague = VagueAsteroid.createVagueAsteroid(this);
+                getListEntite().add(vague);
+                cashh = true;
+            }
+            if ((!getListEntite().contains(vague))){
+                firstVagueOff = true;
+                vague = VagueAsteroid.createVagueAsteroid(this);
+                getListEntite().add(vague);
+                player1.armeEquipee = new TriBlaster();
+            }
+        }
         
-//        if (!getListEntite().contains(vague)){
-//            firstVagueOff = true;
-//            vague = VagueAsteroid.createVagueAsteroid(this);
-//            getListEntite().add(vague);
-//            player1.armeEquipee = new TriBlaster();
-//        }
-//        
-//        if (firstVagueOff){
-//            
-//            double rand = Math.random();
-//            if (rand < 0.05){
-//                jamel j = new jamel(this);
-//                this.add(j);
-//            }
-//        }
+        
+        
+        if (firstVagueOff && Math.random() < 0.05)
+            this.add(new jamel(this));
+        
         for(int i = 0; i<getListEntite().size(); i++){
             getListEntite().get(i).update();
         }

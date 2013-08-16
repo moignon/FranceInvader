@@ -21,7 +21,9 @@ public class GameFrame extends JFrame{
     public GameFrame (){
         super();
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        if(false) // Full screen mode
+        
+        boolean fullscreen = false;
+        if(fullscreen) // Full screen mode
 	{
 	    this.setUndecorated(true);
             this.setLocationRelativeTo(null);
@@ -30,16 +32,19 @@ public class GameFrame extends JFrame{
 	}
 	else // Window mode
 	{
-            //this.setUndecorated(true);
-            this.setSize(1255+this.getInsets().left+this.getInsets().right, 875 +this.getInsets().top+this.getInsets().bottom);
+            this.setUndecorated(true);
+           // this.setSize(1250+this.getInsets().left+this.getInsets().right, 875 +this.getInsets().top+this.getInsets().bottom);
 	    // Puts frame to center of the screen.
 	    this.setLocationRelativeTo(null);
 	    this.setResizable(true);
 	}
         this.requestFocus();
         MainMenu menu = new MainMenu(this);
-        //Level1 jeu = new Level1();        
-        this.add(menu);
+        pack();
+        this.setLocationRelativeTo(null);
+        if(!fullscreen){
+            setSize(1250 + getSize().width - menu.getSize().width, 875 + getSize().height - menu.getSize().height);
+        }
         this.setVisible(true);
     }
     

@@ -127,6 +127,21 @@ class Player extends Entite {
         }
         chooseAnim();
     }
+    @Override
+    public void move() {
+        getPosVector().addX(getXspeed());
+        getPosVector().addY(getYspeed());
+        double limiteX = getPanel().getWIDTH()- (this.getL()/2) -1;
+        double limiteY = getPanel().getHEIGHT()- this.getH()/2 -1;
+        if(getPosVector().getX() > limiteX)
+            getPosVector().setX(limiteX);
+        if(getPosVector().getX() < this.getL()/2)
+            getPosVector().setX(this.getL()/2);
+        if(getPosVector().getY() > limiteY)
+            getPosVector().setY(limiteY);
+        if(getPosVector().getY() < this.getH()/2)
+            getPosVector().setY(this.getH()/2);
+    }
     
     @Override
     public void blit (Graphics2D gBuffer){

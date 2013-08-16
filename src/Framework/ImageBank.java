@@ -4,7 +4,12 @@
  */
 package Framework;
 
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +28,7 @@ public class ImageBank {
     private HashMap images = new HashMap();
     
     private ImageBank() {
+        
     }
     /**
      *
@@ -32,21 +38,31 @@ public class ImageBank {
         return bank;
     }
     public BufferedImage getImages(String ref){
-        
-        if (images.get(ref) != null){
-            return (BufferedImage)images.get(ref);
+        BufferedImage Bimage = (BufferedImage) images.get(ref);
+        if (Bimage != null){
+            return Bimage;
         }
         System.out.println("acces disque"+ref);
         String path = IMAGE_DIR+ref;
-        BufferedImage Bimage;
 	try {            
             Bimage = ImageIO.read(new File(path)) ;
-            images.put(ref,Bimage);
             images.put(ref,Bimage);
             return Bimage;
         } catch (IOException e) {
             return null;
         }
+        
+// une piste pour ameliorer le temps pris par une image pour etre dessiné dans le buffer
+// mais le resultat obtenu est etrange
+//        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+//        GraphicsDevice device = env.getDefaultScreenDevice();
+//        GraphicsConfiguration config = device.getDefaultConfiguration();
+//        BufferedImage buffy = config.createCompatibleImage(Bimage.getWidth(), Bimage.getHeight(), Transparency.TRANSLUCENT);
+//        Graphics2D g2d = buffy.createGraphics();
+//        g2d.drawImage(Bimage, 0, 0, null);
+//        images.put(ref,buffy);
+//        return buffy;
+        
     }
     
     public BufferedImage[][] getImages (String ref, int nbAnim, int nbClé){

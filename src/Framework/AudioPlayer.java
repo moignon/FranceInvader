@@ -77,7 +77,6 @@ public class AudioPlayer extends Thread {
     
     @Override
     public void run(){
-        //super.run();
         try {
             stop = false;
             try {

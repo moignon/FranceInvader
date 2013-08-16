@@ -27,8 +27,12 @@ import franceinvaders.GameFrame;
 import franceinvaders.Level1;
 import franceinvaders.MainMenu;
 import java.awt.Cursor;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.Transparency;
 
 public abstract class GamePanel extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener{
 
@@ -212,13 +216,13 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
         
         //create the Buffer
         if( gBuffer == null) {
-            buffer = new BufferedImage(WIDTH2,HEIGHT2, BufferedImage.TYPE_INT_ARGB);  
+            buffer = new BufferedImage(WIDTH2,HEIGHT2, BufferedImage.TYPE_INT_RGB); 
             gBuffer = buffer.createGraphics();
         }
         
         //clear the Background
         gBuffer.setColor(Color.white);
-        gBuffer.fillRect(0, 0, WIDTH2, HEIGHT2);
+       // gBuffer.fillRect(0, 0, WIDTH2, HEIGHT2);
         
         
         blitEntites ();
@@ -230,6 +234,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
         gBuffer.drawImage(viseur, (int)mousePos.getX()-viseur.getWidth(this)/2, (int)mousePos.getY()-viseur.getHeight(this)/2, this);
 
         gBuffer.setFont(new Font(null,20,20));
+        gBuffer.setColor(Color.yellow);
         gBuffer.drawString("FPS :"+ fps, 50, 50);
         
         if(gameOver){
