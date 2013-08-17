@@ -34,7 +34,7 @@ public class Explosion extends Entite{
     }
 
     @Override
-    public void codeMe() {
+    public void trollNoobs() {
         SpriteAnime s = ((SpriteAnime)this.sprite);
         if (!s.isActive()){
             this.panel.getListEntite().remove(this);
@@ -43,7 +43,6 @@ public class Explosion extends Entite{
 
     @Override
     public void collided(Entite s, Collision c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

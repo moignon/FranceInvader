@@ -53,7 +53,7 @@ public class MegaLaser extends Entite {
     }
 
     @Override
-    public void codeMe() {
+    public void trollNoobs() {
         
         for (int i = 0; i < this.panel.getListEntite().size(); i++){
             Entite e = this.panel.getListEntite().get(i);

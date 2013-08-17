@@ -24,7 +24,7 @@ public class Psy extends Mob {
     }
 
     @Override
-    public void codeMe() {
+    public void trollNoobs() {
         if(this.getY()+this.getH()/2 >= getPanel().getHEIGHT()){
             getPanel().gameOver();
         }

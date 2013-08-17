@@ -6,7 +6,9 @@ package franceinvaders.Weapons;
 
 import Framework.Entite;
 import Framework.ImageBank;
+import Framework.Sprite;
 import Framework.SpriteAnime;
+import Math2d.Vector;
 import franceinvaders.Constantes;
 import franceinvaders.ProjectilesEntites.Flamme;
 import franceinvaders.ProjectilesEntites.Projectile;
@@ -17,40 +19,43 @@ import franceinvaders.ProjectilesEntites.Projectile;
  */
 public class TriBlaster implements Weapon {
     
-    int delai = 50; // en milliSec
+    int delai = 40; // en milliSec
     long dernierTir;
-    double projectileSpeed = 30;
+    double projectileSpeed = 25;
+    int projectileDmg = 10;
+    Sprite s = new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 );
 
     @Override
-    public void Fire(Entite e) {
-        if (System.currentTimeMillis() - dernierTir < delai)
+    public void Fire(Entite tireur) {
+        if (tireur.getPanel().getCurrentTime() - dernierTir < delai)
             return;
-        double x = e.getX(),
-               y = e.getY();
-        dernierTir = System.currentTimeMillis();
+        
+        dernierTir = tireur.getPanel().getCurrentTime();
         Projectile[] tirs = new Projectile[3];
-        tirs[0] = new Flamme(new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 ), e.getPanel());
-        tirs[0].setPosition(e.getX(), e.getY() - e.getH()*3/4);
-        tirs[0].setAngle(e.getAngle());
-        tirs[0].getSpeedVector().setXY(0, projectileSpeed);
-        tirs[0].getSpeedVector().rotate(tirs[0].getAngle());
+        tirs[0] = new Flamme(s, tireur.getPanel());
+        tirs[0].setYspeed(-projectileSpeed);
+        tirs[0].setPosRelativeTo(0, tireur.getH()*3/4, tireur, true);
         
-        tirs[1] = new Flamme(new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 ), e.getPanel());
-        tirs[1].setPosition(e.getX()+30, e.getY()+30 - e.getH()*3/4);
-        tirs[1].setAngle(e.getAngle());
-        tirs[1].getSpeedVector().setXY(0, projectileSpeed);
-        tirs[1].getSpeedVector().rotate(tirs[0].getAngle());
+        tirs[1] = new Flamme(s, tireur.getPanel());
+        tirs[1].setYspeed(-projectileSpeed);
+        tirs[1].setPosRelativeTo(30, 30, tireur, true);
         
-        tirs[2] = new Flamme(new SpriteAnime(ImageBank.get().getImages(Constantes.flammeRef, 1, 4),60 ), e.getPanel());
-        tirs[2].setPosition(e.getX()-30, e.getY()+30 - e.getH()*3/4);
-        tirs[2].setAngle(e.getAngle());
-        tirs[2].getSpeedVector().setXY(0, projectileSpeed);
-        tirs[2].getSpeedVector().rotate(tirs[0].getAngle());
+        tirs[2] = new Flamme(s, tireur.getPanel());
+        tirs[2].setYspeed(-projectileSpeed);
+        tirs[2].setPosRelativeTo(-30, 30, tireur, true);
         
         for (int i =0; i < tirs.length; i ++){
-            e.getPanel().add(tirs[i]);
+            tirs[i].setHitDmg(projectileDmg);
+            tireur.getPanel().add(tirs[i]);
         }
         
+    }
+    @Override
+    public void update() {
+    }
+    
+    public void setHitDmg (int param){
+        this.projectileDmg = param;
     }
     
 }

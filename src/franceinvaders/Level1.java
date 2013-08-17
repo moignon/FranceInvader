@@ -18,6 +18,7 @@ import franceinvaders.ProjectilesEntites.Flamme;
 import Animations.Papa;
 import franceinvaders.Weapons.CashIcon;
 import franceinvaders.Weapons.DaddyBoom;
+import franceinvaders.Weapons.MissileGuide;
 import franceinvaders.Weapons.TirSimple;
 import franceinvaders.Weapons.Tourbilol;
 import franceinvaders.Weapons.TriBlaster;
@@ -56,16 +57,17 @@ public class Level1 extends GamePanel {
         
         player1 = new Player(sPlayer, this);
         player1.setPosition(this.getWIDTH()/2,this.getHEIGHT()- player1.h);
-        player1.armeEquipee = new Tourbilol();
+        player1.armeEquipee = new MissileGuide();
         
         cash = new CashIcon (this);
         cash.setPosition(getWIDTH()/2, getHEIGHT()/2);
         getListEntite().add(cash);
         
-//        jamel j = new jamel(this);
-//        j.setPosition(200, 500);
-//        j.setXspeed(0);
-//        j.setYspeed(0);
+        jamel j = new jamel(this);
+        j.setPosition(200, 500);
+        j.setXspeed(0);
+        j.setYspeed(0);
+        getListEntite().add(j);
         
 //        Psy p = new Psy(this);
 //        p.setPosition(500, 500);
@@ -93,13 +95,14 @@ public class Level1 extends GamePanel {
                 firstVagueOff = true;
                 vague = VagueAsteroid.createVagueAsteroid(this);
                 getListEntite().add(vague);
-                player1.armeEquipee = new TriBlaster();
+              //  player1.armeEquipee = new TriBlaster();
+                player1.armeSecondaire = new Tourbilol(player1);
             }
         }
         
         
         
-        if (firstVagueOff && Math.random() < 0.05)
+        if (firstVagueOff && Math.random() < 0.2)
             this.add(new jamel(this));
         
         for(int i = 0; i<getListEntite().size(); i++){
@@ -150,6 +153,10 @@ public class Level1 extends GamePanel {
         else {
             audio.resume();
         }
+    }
+
+    public Entite getPlayer1() {
+        return this.player1;
     }
 
     

@@ -36,5 +36,9 @@ public class TirSimple implements Weapon {
         tir.getSpeedVector().rotate(tir.getAngle());
         e.getPanel().add(tir);
     }
+
+    @Override
+    public void update() {
+    }
     
 }

@@ -32,7 +32,7 @@ public class GameFrame extends JFrame{
 	}
 	else // Window mode
 	{
-            this.setUndecorated(true);
+          //  this.setUndecorated(true);
            // this.setSize(1250+this.getInsets().left+this.getInsets().right, 875 +this.getInsets().top+this.getInsets().bottom);
 	    // Puts frame to center of the screen.
 	    this.setLocationRelativeTo(null);

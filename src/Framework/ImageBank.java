@@ -53,7 +53,7 @@ public class ImageBank {
         }
         
 // une piste pour ameliorer le temps pris par une image pour etre dessiné dans le buffer
-// mais le resultat obtenu est etrange
+// mais le resultat obtenu est
 //        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 //        GraphicsDevice device = env.getDefaultScreenDevice();
 //        GraphicsConfiguration config = device.getDefaultConfiguration();

@@ -5,6 +5,10 @@
 package franceinvaders.Weapons;
 
 import Framework.Entite;
+import Framework.ImageBank;
+import Framework.Sprite;
+import Framework.SpriteAnime;
+import franceinvaders.Constantes;
 
 /**
  *
@@ -13,23 +17,52 @@ import Framework.Entite;
 public class Tourbilol implements Weapon{
     
     TriBlaster tir = new TriBlaster();
-    Boolean bool = true;
     double angle;
-@Override
-    public void Fire(Entite e) {
-        if (bool){
-            angle = e.getAngle();
-            bool = false;
-        }
-        angle = angle + (Math.PI*0.1);
-        double a = e.getAngle();
-        e.setAngle(angle);
-        tir.projectileSpeed = 15;
-        tir.delai = 10
-                
-                ;
-        tir.Fire(e);
-        e.setAngle(a);
-    }
+    long duréeTir = 300;
+    long deltaDuréeTir = 0;
+    long delai = 1000;
+    long deltaDelai = delai ;
+    Entite tireur;
+    private boolean init;
     
+    public Tourbilol (Entite e){
+        tireur = e;
+        tir.projectileSpeed = 15;
+        tir.delai = 10;
+        tir.setHitDmg(5);
+        tir.s = new Sprite(ImageBank.get().getImages(Constantes.shurikenRef));
+    }   
+    
+    @Override
+    public void Fire(Entite e) {
+    tireur = e;
+    
+    if (!init && deltaDelai >= delai ){
+        angle = e.getAngle();
+        init = true;
+        }
+    }
+
+    @Override
+    public void update() {
+        
+        if (init){
+            try{((SpriteAnime)tireur.getSprite()).setAnim(1);
+            }
+            catch (Exception ignored){}
+           angle = angle + (Math.PI*0.1);
+           tireur.setAngle(angle);
+           tir.Fire(tireur); 
+           if (deltaDuréeTir >= duréeTir){
+               init = false;
+               deltaDuréeTir = 0 ;
+               deltaDelai = 0;
+           }
+           if(init)
+               deltaDuréeTir = deltaDuréeTir + tireur.getPanel().getdTime();
+        }
+        if(deltaDelai < delai){
+            deltaDelai = deltaDelai + tireur.getPanel().getdTime(); 
+        }
+    }
 }

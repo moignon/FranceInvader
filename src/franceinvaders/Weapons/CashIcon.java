@@ -52,7 +52,7 @@ public class CashIcon extends Entite {
         }
     }
     @Override
-    public void codeMe() {
+    public void trollNoobs() {
         if(hit){
             waitTime = waitTime + panel.getdTime();
                 if(waitTime <= animTime){

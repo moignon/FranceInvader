@@ -26,11 +26,11 @@ public class jamel extends Mob {
         this.setXspeed((int) (Math.random()*10) - 5);
         //this.setXspeed(1);
         this.setYspeed((int)(Math.random()*10));
-        panel.add(this);
+       // panel.add(this);
     }
 
     @Override
-    public void codeMe() {
+    public void trollNoobs() {
         
         if (this.isOutOfScreen()) {
             this.getPanel().remove(this);

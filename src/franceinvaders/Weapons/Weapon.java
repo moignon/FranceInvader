@@ -14,5 +14,5 @@ public interface Weapon {
     
     public void Fire (Entite e);
         
-    
+    public void update();
 }

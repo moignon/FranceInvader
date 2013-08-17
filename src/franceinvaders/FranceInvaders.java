@@ -20,11 +20,7 @@ public class FranceInvaders {
     public static GameFrame jeu;
     public static void main(String[] args) {
         
-//        Vector pos = new Vector(0,5);
-//        double angleTest = -Math.PI/2;
-//        pos.rotate(angleTest);
-//        pos.rotate(angleTest);
-//        System.out.println(pos.getX()+","+pos.getY());
+        System.err.println(Math.PI);
         
         jeu = new GameFrame();
         

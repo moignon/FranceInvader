@@ -16,26 +16,21 @@ import java.io.File;
  * @author John
  */
 public class Flamme extends Projectile {
-    private final int hitDmg = 10;
+    
     private static File fireSound;
     
     public Flamme (Sprite sprite,GamePanel panel){
         super(sprite,panel);
+        this.setHitDmg(10);
         if (fireSound == null)
             fireSound = new File ("ressources/audio/fire.wav");
         AudioPlayer audio = AudioPlayer.createPlayer(fireSound);
         audio.setVolume(-20F);
         audio.start();
       }
-
-    @Override
-    public int getHitDmg() {
-        return hitDmg;
-    }
-
+    
     @Override
     public void collided(Entite s, Collision c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

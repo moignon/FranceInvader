@@ -27,5 +27,9 @@ public class DaddyBoom implements Weapon {
         }
         
     }
+
+    @Override
+    public void update() {
+    }
     
 }

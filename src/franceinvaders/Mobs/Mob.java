@@ -21,6 +21,7 @@ public abstract class Mob extends Entite{
     private int  lifeMax,
                  life,
                  points;
+    public boolean isTarget = false;
     
     public Mob (Sprite sprite,GamePanel panel, int _lifeMax, int _points){
         super(sprite, panel);

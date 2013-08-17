@@ -49,7 +49,7 @@ public abstract class Entite {
     
     public void update (){
         if (active){
-            codeMe();
+            trollNoobs();
             move();
 //       
             
@@ -81,8 +81,20 @@ public abstract class Entite {
     public void setPosition (double _x, double _y){
         pos.setXY(_x, _y);
     }
+    public void setPosRelativeTo (double x, double y, Entite e, Boolean turnSpeedVector){
+        Vector v = new Vector (x, y);
+        v.rotate(e.getAngle());
+        setPosition(v.getX()+ e.getX(), v.getY() + e .getY());
+        if(turnSpeedVector){
+           getSpeedVector().rotate(e.getAngle()+Math.PI);
+           setAngle(e.getAngle()); 
+        }
+    }
     public double getX() {
         return pos.getX();
+    }
+    public Sprite getSprite(){
+        return this.sprite;
     }
     public double getY() {
         return pos.getY();
@@ -113,7 +125,7 @@ public abstract class Entite {
     }
     
     public abstract void collided (Entite s, Collision c);
-    public abstract void codeMe();
+    public abstract void trollNoobs();
 //    public abstract void collisionDetected();
 
     public void setXspeed(double speed) {
@@ -148,6 +160,10 @@ public abstract class Entite {
     public void move() {
         pos.addX(speed.getX());
         pos.addY(speed.getY());
+    }
+
+    public boolean isActive() {
+        return panel.getListEntite().contains(this);
     }
     
 

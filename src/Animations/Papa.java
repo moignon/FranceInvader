@@ -43,7 +43,7 @@ public class Papa extends Entite {
     }
 
     @Override
-    public void codeMe() {
+    public void trollNoobs() {
         SpriteAnime s = ((SpriteAnime)this.sprite);
         long currentTime = System.currentTimeMillis();
         if(lastTime == 0)

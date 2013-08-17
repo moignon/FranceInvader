@@ -27,7 +27,7 @@ import java.awt.Graphics2D;
  *
  * @author John
  */
-class Player extends Entite {
+public class Player extends Entite {
     
     Vector v;
     private boolean []keys;
@@ -79,7 +79,8 @@ class Player extends Entite {
     }
     
     @Override
-    public void codeMe() {
+    public void trollNoobs() {
+        
         this.setAngle(this.pos.orientToVector(panel.getMouseVector()));
         getSpeedVector().setXY(0, 0);
         for (int i = 0; i < keys.length; i ++){
@@ -108,6 +109,7 @@ class Player extends Entite {
             }
         }
         v = new Vector(getXspeed(),getYspeed());
+        
         if(controlMode == 1)
             getSpeedVector().rotate(this.getAngle()+Math.PI);  
         
@@ -126,11 +128,15 @@ class Player extends Entite {
             }
         }
         chooseAnim();
+        this.armeEquipee.update();
+        this.armeSecondaire.update();
     }
     @Override
     public void move() {
+        
         getPosVector().addX(getXspeed());
         getPosVector().addY(getYspeed());
+        
         double limiteX = getPanel().getWIDTH()- (this.getL()/2) -1;
         double limiteY = getPanel().getHEIGHT()- this.getH()/2 -1;
         if(getPosVector().getX() > limiteX)

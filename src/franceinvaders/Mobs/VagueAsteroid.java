@@ -16,8 +16,8 @@ import java.util.ArrayList;
  * @author John
  */
 public class VagueAsteroid extends Psy {
-    
-    ArrayList <Psy> Psys;
+    static VagueAsteroid v;
+    public  ArrayList <Psy> Psys;
     private final int nbLignes = 4,ecartLigne = 75,
                       nbColonnes = 12, ecartColonne = 55, dG = 300,
                       pixelDescente = 80;
@@ -28,7 +28,7 @@ public class VagueAsteroid extends Psy {
     private int pixelsDescendues;
     private int pixelsDescendus;
     Boolean droite = false, gauche = false, bas = false, haut = false;
-    ArrayList <Mob> MobsTouché = null;
+    
     private boolean wait = false;
     private boolean invulnerable = true;
     long recoveryTime = 1500,
@@ -39,13 +39,13 @@ public class VagueAsteroid extends Psy {
     private VagueAsteroid (GamePanel panel) {
         super(panel);
         Psys = new ArrayList <>();
-        MobsTouché = new ArrayList();
         vitesseActuelle = vitesseDepart;
         for (int j=30 ; j <= nbLignes*ecartLigne; j+=ecartLigne){
             for (int i=dG ; i <nbColonnes*ecartColonne+dG; i+=ecartColonne){
                 Psy psy = new Psy (panel);
                 psy.setPosition(i,j);
                 Psys.add(psy);
+                panel.getListEntite().add(psy);
             }
         }
         baseTime =  panel.getCurrentTime();
@@ -61,11 +61,6 @@ public class VagueAsteroid extends Psy {
     
     @Override
     public void update (){
-        if (panel.getCurrentTime() - baseTime > recoveryTime){
-            invulnerable = false;
-            MobsTouché.clear();
-        }
-        
         if ( (Psys.size() == 30 || Psys.size() == 20 || Psys.size() == 10 ) && wait == false){
             wait = true ;
             if(bas){
@@ -76,8 +71,6 @@ public class VagueAsteroid extends Psy {
             if(droite)this.setXspeed(vitesseActuelle++);
             if(gauche)this.setXspeed(vitesseActuelle--);
         }
-            
-            
         if (bas){
             if (descenteTerminée()){
                 setYspeed(0);
@@ -95,16 +88,19 @@ public class VagueAsteroid extends Psy {
                 setYspeed(Math.abs(vitesseActuelle));
             }
         }
-        for(int i = 0; i < Psys.size(); i ++){
-            Psys.get(i).update();
+        
+        boolean b = false;
+        for (int i = 0 ; i < Psys.size(); i ++){
+            if (panel.getListEntite().contains(Psys.get(i))){
+                b = true;
+            }
         }
+        if(!b) this.dead();
+        
     }
     
     @Override
-    public void blit(Graphics2D gBuffer) {        
-        for(int i = 0; i < Psys.size(); i ++){
-            Psys.get(i).blit(gBuffer);
-        }
+    public void blit(Graphics2D gBuffer) { 
     }
     @Override
     public void setXspeed(double speed) {
@@ -124,53 +120,6 @@ public class VagueAsteroid extends Psy {
             Psys.get(i).setYspeed(speed);
         }
     }
-    
-    @Override
-    public boolean collidesWith(Entite e){
-        Boolean hit = false;
-        for(int i = 0; i < Psys.size(); i ++){
-            if (Psys.get(i).collidesWith(e)){
-                MobsTouché.add(Psys.get(i));
-                hit = true;
-            }
-        }
-        return hit;
-    }
-    
-    @Override
-    public void takeDmg(int hitDmg) {
-        if (invulnerable) {
-            MobsTouché.clear();
-            return;
-        }
-        for (int i = 0 ; i < MobsTouché.size(); i ++){
-            Mob MobTouché = MobsTouché.get(i);
-            MobTouché.takeDmg(hitDmg);
-            if (MobTouché.getLife() <= 0){
-                Psys.remove(MobTouché);
-                wait = false;
-            }
-        }
-        MobsTouché.clear();
-        if (this.Psys.size() == 0)
-            dead ();
-    }
-
-    @Override
-    public void dead() {
-        panel.getListEntite().remove(this);
-    }
-    
-    
-    
-    
-    
-    
-
-
-    @Override
-    public void codeMe() {};
-    
     private boolean descenteTerminée() {
         if (pixelsDescendus >= pixelDescente){
             pixelsDescendus = 0 ;
@@ -178,7 +127,6 @@ public class VagueAsteroid extends Psy {
         }
         return false;
     }
-    
     private boolean peutBougerHorizontal() {
         for (int i = 0 ; i < Psys.size(); i++){
             Psy psy = Psys.get(i);
@@ -188,6 +136,12 @@ public class VagueAsteroid extends Psy {
         return true;
     }
     
+    @Override
+    public void takeDmg(int hitDmg) {
+    }
+        
+    @Override
+    public void trollNoobs() {};
     
     
     
