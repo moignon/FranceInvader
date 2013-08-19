@@ -37,7 +37,7 @@ public class MissileGuide implements Weapon{
     Entite targett;
     double rayonRecherche = 500000;
     private long dernierTir;
-    private long delai = 50;
+    private long delai = 100;
     
     public MissileGuide (){
        p = null;
@@ -52,15 +52,36 @@ public class MissileGuide implements Weapon{
         targett = this.findTarget(e.getPanel());
         p = new Projectile(s, e.getPanel()){
             Entite target = targett ;
+            private double acceleration = 0.4,
+                           velocityDecay = 0.97;
             @Override
             public void trollNoobs(){
                 if (target != null){
                     if (target.isActive()){
-                        this.setYspeed(-missileSpeed);
-                        this.setXspeed(0);
-                        double angle = getPosVector().orientToVector(target.getPosVector())*101/100;
-                        this.setAngle(angle);
-                        getSpeedVector().rotate(Math.PI + this.getAngle());
+                        double x = getSpeedVector().getX();
+                        double y = getSpeedVector().getY();
+                        double newAngle = getPosVector().orientToVector(target.getPosVector());
+                        
+                        Vector s = new Vector(0,acceleration);
+                        s.rotate(newAngle);
+                        x*=velocityDecay;
+                        y*=velocityDecay;
+                        setXspeed(x + s.getX());
+                        setYspeed(y + s.getY());
+                        Vector next = (new Vector(this.getX()+getXspeed(),this.getY()+getYspeed()));
+                        setAngle(getPosVector().orientToVector(next));
+                        
+
+                        
+                        
+                        
+                        
+                        
+                        
+//                        this.setYspeed(missileSpeed);
+//                        this.setXspeed(0);
+//                        this.setAngle(newAngle - Math.PI*2);
+//                        getSpeedVector().rotate(this.getAngle());
                     }
                     else
                         target = null;
