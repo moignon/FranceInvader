@@ -38,10 +38,12 @@ public class TriBlaster implements Weapon {
         
         tirs[1] = new Flamme(s, tireur.getPanel());
         tirs[1].setYspeed(-projectileSpeed);
+        tirs[1].setXspeed(-1);
         tirs[1].setPosRelativeTo(30, 30, tireur, true);
         
         tirs[2] = new Flamme(s, tireur.getPanel());
         tirs[2].setYspeed(-projectileSpeed);
+        tirs[2].setXspeed(1);
         tirs[2].setPosRelativeTo(-30, 30, tireur, true);
         
         for (int i =0; i < tirs.length; i ++){

@@ -24,11 +24,12 @@ import javax.imageio.ImageIO;
 public class ImageBank {
     
     private final static String IMAGE_DIR ="ressources/images/";
+    private ClassLoader cl;
     private static ImageBank bank = new ImageBank();
     private HashMap images = new HashMap();
     
     private ImageBank() {
-        
+        cl = this.getClass().getClassLoader();
     }
     /**
      *
@@ -45,7 +46,8 @@ public class ImageBank {
         System.out.println("acces disque"+ref);
         String path = IMAGE_DIR+ref;
 	try {            
-            Bimage = ImageIO.read(new File(path)) ;
+            //Bimage = ImageIO.read(new File(path)) ;
+            Bimage =  ImageIO.read(cl.getResource(path)) ;
             images.put(ref,Bimage);
             return Bimage;
         } catch (IOException e) {
@@ -74,7 +76,8 @@ public class ImageBank {
         String path = IMAGE_DIR+ref;
         BufferedImage Bimage;
 	try {
-            Bimage =  ImageIO.read(new File(path)) ;
+            //Bimage =  ImageIO.read(new File(path)) ;
+            Bimage =  ImageIO.read(cl.getResource(path)) ;
             clés = new BufferedImage[nbAnim][nbClé];
             for (int i = 0 ; i < clés.length; i++){
                 for (int j = 0 ; j < clés[i].length; j++){

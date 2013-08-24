@@ -9,6 +9,7 @@ import Framework.Collision;
 import Framework.Entite;
 import Framework.GamePanel;
 import Framework.Sprite;
+import franceinvaders.Constantes;
 import java.io.File;
 
 /**
@@ -17,16 +18,13 @@ import java.io.File;
  */
 public class Flamme extends Projectile {
     
-    private static File fireSound;
-    
     public Flamme (Sprite sprite,GamePanel panel){
         super(sprite,panel);
         this.setHitDmg(10);
-        if (fireSound == null)
-            fireSound = new File ("ressources/audio/fire.wav");
-        AudioPlayer audio = AudioPlayer.createPlayer(fireSound);
-        audio.setVolume(-20F);
-        audio.start();
+        
+//        AudioPlayer audio = AudioPlayer.createPlayer(Constantes.FireFxRef);
+//        audio.setGain(-25);
+//        audio.START();
       }
     
     @Override

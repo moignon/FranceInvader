@@ -20,16 +20,16 @@ import java.io.File;
  */
 public class Explosion extends Entite{
     
-    static File Sound;
-    
+     AudioPlayer audio = null;
     public Explosion (GamePanel panel){
+        
         super(new SpriteAnime(ImageBank.get().getImages(Constantes.explosionRef, 1, 5),100), panel);
         ((SpriteAnime)this.sprite).setLooping(false);
-        if (Sound == null)
-            Sound = new File ("ressources/audio/fx2.wav");
-            AudioPlayer audio = AudioPlayer.createPlayer(Sound);
-            audio.setVolume(-5f);
-            audio.start();
+            audio = AudioPlayer.createPlayer(Constantes.ExplosionFxRef);
+            audio.setGain(-6);
+            audio.setLooping(false);
+            audio.setChan(AudioPlayer.Channels.FXs);
+            audio.START();
         
     }
 

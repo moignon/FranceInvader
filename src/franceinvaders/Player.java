@@ -157,12 +157,13 @@ public class Player extends Entite {
     }
 
     private void dead() {
-        Explosion exp = new Explosion(getPanel());
-        exp.setPosition(getX(), getY());
-        panel.add(exp);
+        Explosion exp = new Explosion(panel);
+        if (exp != null){
+            exp.setPosition(getX(), getY());
+            panel.add(exp);
+        }
     }
     private void chooseAnim (){
-        //sprite.setAnim(0);
         if(v.getX() > 0)sprite.setAnim(1);
         if(v.getX()< 0)sprite.setAnim(2);
         

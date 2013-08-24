@@ -51,8 +51,6 @@ public abstract class Entite {
         if (active){
             trollNoobs();
             move();
-//       
-            
             sprite.updateAnim();
          }
     }

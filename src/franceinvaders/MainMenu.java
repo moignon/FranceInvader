@@ -9,6 +9,8 @@ import Framework.Background;
 import Framework.GamePanel;
 import java.awt.Component;
 import java.io.File;
+import java.net.URI;
+import java.nio.channels.Channels;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -19,34 +21,31 @@ import javax.swing.JFrame;
 public class MainMenu extends GamePanel {
     
     Background background;
-    GameFrame conteneur;
     AudioPlayer audio;
     public MainMenu (GameFrame frame){
-        super();
-        conteneur = frame;
-        conteneur.add(this);
+        super(frame);
         background = new Background(Constantes.MainMenuBackgroundRef);
         background.setSpeed(0);
-        audio = AudioPlayer.createPlayer(new File("ressources/audio/The_J_Arthur_Keenes_Band_-_07_-_El_Campo_Del_Laser.wav"));
-        audio.start();
+        audio = AudioPlayer.createPlayer(Constantes.MainMenuBgmRef);
+        audio.setLooping(false);
+        audio.setChan(AudioPlayer.Channels.MUSIC);
+        audio.START();
         
     }
     
         @Override
     public void gameUpdate(){
             background.update();
-           
             if(keys[java.awt.event.KeyEvent.VK_ENTER]){
-                launchLV(new Level1());
+                launchLV(new Level1(this.getConteneur()));
             }
         }
     public void launchLV(GamePanel level){
-        conteneur.remove(this);
-        conteneur.setVisible(false);
-        conteneur.add(level);
-        conteneur.setVisible(true);
-        audio.pause();
-        audio.interrupt();
+        getConteneur().remove(this);
+        getConteneur().setVisible(false);
+        getConteneur().add(level);
+        getConteneur().setVisible(true);
+        audio.STOP();
         audio = null;
         this.stopGame();
     }
@@ -59,6 +58,8 @@ public class MainMenu extends GamePanel {
     @Override
     public void gameOver() {
     }
+
+ 
     
     
     

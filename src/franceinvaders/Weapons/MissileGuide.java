@@ -35,9 +35,11 @@ public class MissileGuide implements Weapon{
     Sprite s;
     double missileSpeed = 10;
     Entite targett;
-    double rayonRecherche = 500000;
+    double rayonRecherche 
+            
+            = 500000;
     private long dernierTir;
-    private long delai = 100;
+    private long delai = 200;
     
     public MissileGuide (){
        p = null;

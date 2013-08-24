@@ -26,6 +26,7 @@ import franceinvaders.Constantes;
 import franceinvaders.GameFrame;
 import franceinvaders.Level1;
 import franceinvaders.MainMenu;
+import franceinvaders.Options;
 import java.awt.Cursor;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
@@ -51,7 +52,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     
     
     protected Vector mousePos;
-    protected boolean [] keys = new boolean[256];
+    protected boolean [] keys = new boolean[1024];
     protected boolean downKey = false;
     protected boolean upKey = false;
     protected boolean leftKey = false; 
@@ -85,7 +86,10 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     
     Boolean packed = false;
     
-    public GamePanel (){
+    private GameFrame conteneur;
+    
+    public GamePanel (GameFrame frame){
+        conteneur = frame;
         setBackground (Color.BLACK);
         setPreferredSize(new Dimension(WIDTH2,HEIGHT2) );
         setFocusable(true);
@@ -99,6 +103,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
         GamePanel.currentTime = System.currentTimeMillis();
         mousePos = new Vector(WIDTH2/2,HEIGHT2/2);
         initKeys();
+        conteneur.add(this);
     }  
     public int getWIDTH (){
         return WIDTH2;
@@ -130,6 +135,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
             pause = false;
             running = true;
             thread = new Thread(this);
+            thread.setName(this.getClass().getSimpleName());
             thread.start();
         }
     }
@@ -158,14 +164,18 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
                             conteneur.setVisible(false);
                             MainMenu m = new MainMenu(conteneur);
                             conteneur.setVisible(true);
-                            audio.pause();
+                            audio.STOP();
                             this.stopGame();
                    
                     }
                 }
                 else{
                     if (keys[java.awt.event.KeyEvent.VK_F1]) devMode = !devMode;
-                    gameUpdate();
+                    if (keys[java.awt.event.KeyEvent.VK_O]){
+                        keys[java.awt.event.KeyEvent.VK_O] = false;
+                        showOptionMenu ();
+                    }
+                    this.gameUpdate();
                     gameRenderer ();
                 }
                 currentTime = System.currentTimeMillis();
@@ -222,7 +232,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
         
         //clear the Background
         gBuffer.setColor(Color.white);
-       // gBuffer.fillRect(0, 0, WIDTH2, HEIGHT2);
+        gBuffer.fillRect(0, 0, WIDTH2, HEIGHT2);
         
         
         blitEntites ();
@@ -251,7 +261,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
         gBuffer.drawString(gameOverMsg, x, y);
     }
     
-    private void paintOnScreen(){
+    protected void paintOnScreen(){
         Graphics g;
         try{
             g = this.getGraphics();
@@ -265,9 +275,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     @Override
     public void keyPressed(KeyEvent ke) {
         if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE) this.pauseGame();
-     //   if (ke.getKeyCode() == java.awt.event.KeyEvent.VK_F1) devMode = !devMode;
         keys[ke.getKeyCode()] = true;
-        
     }
     @Override
     public void keyReleased(KeyEvent ke) {
@@ -379,6 +387,26 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
 
     public void setDevMode(Boolean devMode) {
         this.devMode = devMode;
+    }
+    public void showOptionMenu() {
+        getConteneur().remove(this); 
+        this.pause = true;
+        getConteneur().setVisible(false);
+        getConteneur().add(new Options(this));
+        getConteneur().setVisible(true);
+    }
+    public void restaure (){
+        
+        this.running = true;
+        getConteneur().setVisible(false);
+        //getConteneur().removeAll();
+        this.pause = false;
+        getConteneur().add(this);
+        getConteneur().setVisible(true);
+    }
+
+    public GameFrame getConteneur() {
+        return conteneur;
     }
 
 }

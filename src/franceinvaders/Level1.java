@@ -47,8 +47,8 @@ public class Level1 extends GamePanel {
     Boolean firstVagueOff = false;
     boolean cashh = false;
    
-    public Level1() {
-        super();
+    public Level1(GameFrame frame) {
+        super(frame);
        
         background = new Background(Constantes.backgroundRef);
         
@@ -57,7 +57,8 @@ public class Level1 extends GamePanel {
         
         player1 = new Player(sPlayer, this);
         player1.setPosition(this.getWIDTH()/2,this.getHEIGHT()- player1.h);
-        player1.armeEquipee = new MissileGuide();
+        player1.armeEquipee = new TriBlaster();
+        
         
         cash = new CashIcon (this);
         cash.setPosition(getWIDTH()/2, getHEIGHT()/2);
@@ -78,8 +79,10 @@ public class Level1 extends GamePanel {
         
 
         
-        audio = AudioPlayer.createPlayer(new File("ressources/audio/RoccoW_-_Break-A-Leg.wav"));
-        audio.start();
+        audio = AudioPlayer.createPlayer(Constantes.Level1BgmRef);
+        audio.setLooping(true);
+        audio.setChan(AudioPlayer.Channels.MUSIC);
+        audio.START();
 
     }
             
@@ -131,27 +134,14 @@ public class Level1 extends GamePanel {
     }
     
     
-//    @Override
-//    public void pauseGame (){
-//        pause = !pause;
-//        if(pause){
-//            audio.pause();
-//        }
-//        else {
-//            audio = AudioPlayer.createPlayer(new File("ressources/audio/RoccoW_-_Break-A-Leg.wav"));
-//            audio.start();
-//        }
-//    }
-    
-    
         @Override
     public void pauseGame (){
         pause = !pause;
         if(pause){
-            audio.suspend();
+            audio.PAUSE();
         }
         else {
-            audio.resume();
+            audio.START();
         }
     }
 

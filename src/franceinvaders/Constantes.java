@@ -21,7 +21,10 @@ public class Constantes {
                                    MainMenuBackgroundRef = "Launcher test 1.png",
                                    viseurRef = "viseur.png",
                                    cashRef ="cashF.png",
-                                   track1Ref = "ressource/audio/BreakALeg.wav",
                                    missileRef = "missile.png";        
         public static final int  MoblifeMax = 4000;
+    public static final String MainMenuBgmRef = "The_J_Arthur_Keenes_Band_-_07_-_El_Campo_Del_Laser.wav",
+                                Level1BgmRef = "RoccoW_-_Break-A-Leg.wav",
+                                ExplosionFxRef = "fx2.wav",
+                                FireFxRef = "fire.wav";
 }

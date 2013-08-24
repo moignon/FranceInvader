@@ -20,7 +20,7 @@ public class Tourbilol implements Weapon{
     double angle;
     long duréeTir = 300;
     long deltaDuréeTir = 0;
-    long delai = 1000;
+    long delai = 2000;
     long deltaDelai = delai ;
     Entite tireur;
     private boolean init;
