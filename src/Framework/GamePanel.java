@@ -171,6 +171,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
                 }
                 else{
                     if (keys[java.awt.event.KeyEvent.VK_F1]) devMode = !devMode;
+                    
                     if (keys[java.awt.event.KeyEvent.VK_O]){
                         keys[java.awt.event.KeyEvent.VK_O] = false;
                         showOptionMenu ();
@@ -392,15 +393,12 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
         getConteneur().remove(this); 
         this.pause = true;
         getConteneur().setVisible(false);
-        getConteneur().add(new Options(this));
+        getConteneur().add(Options.get(this));
         getConteneur().setVisible(true);
     }
     public void restaure (){
-        
-        this.running = true;
-        getConteneur().setVisible(false);
-        //getConteneur().removeAll();
         this.pause = false;
+        getConteneur().setVisible(false);
         getConteneur().add(this);
         getConteneur().setVisible(true);
     }

@@ -26,7 +26,7 @@ public class Explosion extends Entite{
         super(new SpriteAnime(ImageBank.get().getImages(Constantes.explosionRef, 1, 5),100), panel);
         ((SpriteAnime)this.sprite).setLooping(false);
             audio = AudioPlayer.createPlayer(Constantes.ExplosionFxRef);
-            audio.setGain(-6);
+            audio.setGain(-10);
             audio.setLooping(false);
             audio.setChan(AudioPlayer.Channels.FXs);
             audio.START();

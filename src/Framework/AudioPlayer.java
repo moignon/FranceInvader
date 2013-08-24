@@ -70,7 +70,8 @@ public class AudioPlayer extends Thread {
         file = ressource;
     }
     public static AudioPlayer createPlayer(String ref){
-            URL sound = AudioPlayer.class.getResource(AUDIO_DIR+ref);
+        
+        URL sound = AudioPlayer.class.getResource(AUDIO_DIR+ref);
             AudioPlayer audioPlayer = new AudioPlayer(sound);
             audioPlayer.setName("Audio : "+ ref +" #"+ ThreadCount++);
             audioPlayer.init();

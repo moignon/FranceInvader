@@ -16,27 +16,39 @@ import javax.swing.DefaultListModel;
  * @author John
  */
 public class Options extends javax.swing.JPanel {
+    static Options menuOption;
     public static double master =   0.9;
     public static float defaultVolume = 70;
     public static float FxVolume = 70;
     public static float BgmVolume = 70;
     GamePanel previousScreen;
-    public Options(GamePanel panel) {
+    
+    private Options(GamePanel panel) {
         initComponents();
-        
         previousScreen = panel;
-        
+
         jSliderFx.setMaximum(80);
         jSliderFx.setMinimum(45);
         jSliderFx.setValue((int) defaultVolume);
-        
+
         jSliderBgm.setMaximum(80);
         jSliderBgm.setMinimum(45);
         jSliderBgm.setValue((int) defaultVolume);
-        
+
         jSliderMaster.setMinimum(0);
         jSliderMaster.setMaximum(100);
         jSliderMaster.setValue((int) (master*100));
+
+        menuOption = this;
+    }
+    public static Options get(GamePanel panel){
+        if (menuOption == null)
+            return new Options(panel);
+        else{
+            menuOption.previousScreen = panel;
+            return menuOption;
+        }
+            
         
     }
 
@@ -113,7 +125,6 @@ public class Options extends javax.swing.JPanel {
 
     private void jSliderFxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderFxStateChanged
         FxVolume = jSliderFx.getValue();
-        System.err.println(FxVolume);
         if (FxVolume == jSliderFx.getMinimum())
             FxVolume = -80;
     }//GEN-LAST:event_jSliderFxStateChanged
@@ -134,9 +145,6 @@ public class Options extends javax.swing.JPanel {
        previousScreen.restaure();
     }//GEN-LAST:event_jButtonOKActionPerformed
 
-    public static float getFxVolume(){
-        return FxVolume;
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonOK;
     private javax.swing.JSlider jSliderBgm;
