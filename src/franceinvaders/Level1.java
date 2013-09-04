@@ -29,6 +29,7 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.Line;
+import Framework.Camera;
 /**
  * @author John
  */
@@ -43,6 +44,7 @@ public class Level1 extends GamePanel {
     SpriteAnime sPlayer;
     VagueAsteroid vague;
     CashIcon cash;
+    Camera cameraP1;
     
     Boolean firstVagueOff = false;
     boolean cashh = false;
@@ -55,11 +57,19 @@ public class Level1 extends GamePanel {
         sPlayer = new SpriteAnime(ImageBank.get().getImages(Constantes.playerRef, 3, 4),60 );
 //        SpriteFlamme = ImageBank.get().getSprite(Constantes.flammeRef,1,4,10);
         
+        
+        
+        
         player1 = new Player(sPlayer, this);
         player1.setPosition(this.getWIDTH()/2,this.getHEIGHT()- player1.h);
+        
         player1.armeEquipee = new TriBlaster();
-        
-        
+        cameraP1 = new Camera(null , this);
+        cameraP1.center(player1);
+        cameraP1.follow(player1);
+        this.cam = cameraP1;
+        getListEntite().add(cameraP1);
+        player1.setDefaultCamera(cameraP1);
         cash = new CashIcon (this);
         cash.setPosition(getWIDTH()/2, getHEIGHT()/2);
         getListEntite().add(cash);
@@ -117,7 +127,7 @@ public class Level1 extends GamePanel {
     
     @Override
     public void blitEntites () {
-        background.blit(gBuffer);
+        background.blit(gBuffer, this.cam);
         player1.blit(gBuffer);
         for (int i = 0; i<getListEntite().size(); i ++){
             getListEntite().get(i).blit(gBuffer);
