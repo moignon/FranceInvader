@@ -22,7 +22,7 @@ import franceinvaders.Weapons.CashIcon;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
+import Framework.Camera;
 /**
  *
  * @author John
@@ -37,6 +37,7 @@ public class Player extends Entite {
     private double speed = 7.0 ;
     SpriteAnime sprite;
     Weapon armeEquipee,armeSecondaire;
+    private Camera camera;
     
     public Player(Sprite sprite,GamePanel panel) {
         super(sprite, panel);
@@ -175,5 +176,12 @@ public class Player extends Entite {
     public void collided(Entite s, Collision c) {
     }
    
+    public void setDefaultCamera(Camera newCam)
+    {
+        if (newCam != null)
+        {
+            camera = newCam;
+        }
+    }
 }
 
