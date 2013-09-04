@@ -54,12 +54,17 @@ public class MegaLaser extends Entite {
 
     @Override
     public void trollNoobs() {
+        //placer le sprite tout en haut pour etre peint en dernier
+        //en attandent un vrai systeme pour gerer les layers
+        panel.getListEntite().remove(this);
+        panel.getListEntite().add(this);
         
         for (int i = 0; i < this.panel.getListEntite().size(); i++){
             Entite e = this.panel.getListEntite().get(i);
             if (this.getCollisionBox().getHeight() < this.getPanel().getHEIGHT()){
              if (e instanceof Mob) {
                  if (e.collidesWith(this)){
+                     
                      int dmg = ((Mob)e).getLifeMax();
                     ((Mob)e).takeDmg(dmg);
                    }
@@ -100,7 +105,7 @@ public class MegaLaser extends Entite {
         CollisionBox col;
         LaserSprite s = (LaserSprite) this.sprite;
         col = new CollisionBox();
-        col.setBounds(0, (int)this.getY() - s.hauteur * 1/4, panel.getWIDTH(), s.hauteur * 2/4);
+        col.setBounds((int)this.getX(), (int)this.getY() + s.hauteur * 1/4, panel.getWIDTH(), s.hauteur * 2/4);
         
        return col;
     }
@@ -122,8 +127,6 @@ class LaserSprite extends Sprite {
         super(ImageBank.get().getImages(Constantes.megaLaserRef));
         largeur = super.getImage().getWidth()/10;
         hauteur = super.getImage().getHeight();
-        firstTime = System.currentTimeMillis();
-        currentTime = firstTime;
         dTime = 0;
     }
     public void init(MegaLaser l){

@@ -11,18 +11,14 @@ import Framework.Sprite;
 import Framework.ImageBank;
 import Framework.SpriteAnime;
 import franceinvaders.Mobs.Mob;
-import franceinvaders.Mobs.Psy;
 import franceinvaders.Mobs.VagueAsteroid;
 import franceinvaders.Mobs.jamel;
-import franceinvaders.ProjectilesEntites.Flamme;
-import Animations.Papa;
 import franceinvaders.Weapons.CashIcon;
-import franceinvaders.Weapons.DaddyBoom;
 import franceinvaders.Weapons.MissileGuide;
 import franceinvaders.Weapons.TirSimple;
 import franceinvaders.Weapons.Tourbilol;
 import franceinvaders.Weapons.TriBlaster;
-import franceinvaders.Weapons.Weapon;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.io.File;
 import javax.sound.sampled.AudioFormat;
@@ -110,6 +106,7 @@ public class Level1 extends GamePanel {
                 getListEntite().add(vague);
               //  player1.armeEquipee = new TriBlaster();
                 player1.armeSecondaire = new Tourbilol(player1);
+                
             }
         }
         
@@ -159,6 +156,12 @@ public class Level1 extends GamePanel {
         return this.player1;
     }
 
+        @Override
+    public void mouseEntered(MouseEvent e) {
+        BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+        Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
+        setCursor(blankCursor);
+    }
     
 
 

@@ -13,13 +13,13 @@ import franceinvaders.Constantes;
 import java.io.File;
 
 public class Flamme extends Projectile {
-    
+    public AudioPlayer audio ;
     public Flamme (Sprite sprite,GamePanel panel){
         super(sprite,panel);
         this.setHitDmg(10);
         
-        AudioPlayer audio = AudioPlayer.createPlayer(Constantes.FireFxRef);
-        audio.setGain(-25);
+        audio = AudioPlayer.createPlayer(Constantes.FireFxRef);
+        audio.setGain(-5);
         audio.START();
       }
     

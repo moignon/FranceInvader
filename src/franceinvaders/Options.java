@@ -4,28 +4,37 @@
  */
 package franceinvaders;
 
+import Framework.Background;
 import Framework.GamePanel;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.Mixer;
-import javax.sound.sampled.Mixer.Info;
-import javax.swing.DefaultListModel;
+import Framework.ImageBank;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageProducer;
+import javax.swing.JPanel;
 
 /**
  *
  * @author John
  */
-public class Options extends javax.swing.JPanel {
+//
+public class Options extends JPanel {
     static Options menuOption;
     public static double master =   0.9;
     public static float defaultVolume = 70;
     public static float FxVolume = 70;
     public static float BgmVolume = 70;
+    private Background background;
     GamePanel previousScreen;
     
-    private Options(GamePanel panel) {
+    private Options(GameFrame frame,GamePanel panel) {
+        super();
         initComponents();
         previousScreen = panel;
+        
+        
+        background = new Background(Constantes.OptionMenuBackgroundRef);
 
         jSliderFx.setMaximum(80);
         jSliderFx.setMinimum(45);
@@ -38,12 +47,14 @@ public class Options extends javax.swing.JPanel {
         jSliderMaster.setMinimum(0);
         jSliderMaster.setMaximum(100);
         jSliderMaster.setValue((int) (master*100));
+        
+        jButtonOK.setIgnoreRepaint(true);
 
         menuOption = this;
     }
-    public static Options get(GamePanel panel){
+    public static Options get(GameFrame frame, GamePanel panel){
         if (menuOption == null)
-            return new Options(panel);
+            return new Options(frame, panel);
         else{
             menuOption.previousScreen = panel;
             return menuOption;
@@ -65,19 +76,42 @@ public class Options extends javax.swing.JPanel {
         jSliderFx = new javax.swing.JSlider();
         jSliderMaster = new javax.swing.JSlider();
         jButtonOK = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
+        jSliderBgm.setBackground(new java.awt.Color(5, 14, 31));
+        jSliderBgm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
+        jSliderBgm.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jSliderBgm.setDoubleBuffered(true);
+        jSliderBgm.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jSliderFxMouseEntered(evt);
+            }
+        });
         jSliderBgm.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderBgmStateChanged(evt);
             }
         });
 
+        jSliderFx.setBackground(new java.awt.Color(5, 14, 31));
+        jSliderFx.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
+        jSliderFx.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jSliderFx.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderFxStateChanged(evt);
             }
         });
 
+        jSliderMaster.setBackground(new java.awt.Color(5, 14, 31));
+        jSliderMaster.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
+        jSliderMaster.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jSliderMaster.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jSliderFxMouseEntered(evt);
+            }
+        });
         jSliderMaster.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderMasterStateChanged(evt);
@@ -91,38 +125,64 @@ public class Options extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setForeground(new java.awt.Color(227, 227, 227));
+        jLabel1.setText("Music:");
+
+        jLabel2.setForeground(new java.awt.Color(227, 227, 227));
+        jLabel2.setText("FXs:");
+
+        jLabel3.setForeground(new java.awt.Color(227, 227, 227));
+        jLabel3.setText("Master:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jSliderBgm, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jSliderFx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSliderMaster, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(84, 84, 84)
-                .addComponent(jButtonOK)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jSliderFx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSliderMaster, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSliderBgm, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jButtonOK)))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSliderBgm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSliderBgm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSliderFx, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSliderFx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSliderMaster, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jSliderMaster, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonOK)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    @Override
+    public void paintComponent (Graphics g){
+        background.blit((Graphics2D)g);
+    }
     private void jSliderFxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderFxStateChanged
         FxVolume = jSliderFx.getValue();
         if (FxVolume == jSliderFx.getMinimum())
@@ -145,10 +205,45 @@ public class Options extends javax.swing.JPanel {
        previousScreen.restaure();
     }//GEN-LAST:event_jButtonOKActionPerformed
 
+    private void jSliderFxMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSliderFxMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jSliderFxMouseEntered
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonOK;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JSlider jSliderBgm;
     public javax.swing.JSlider jSliderFx;
     private javax.swing.JSlider jSliderMaster;
     // End of variables declaration//GEN-END:variables
+
+//    @Override
+//    protected void gameRenderer() {
+//       
+//        //create the Buffer
+//        if( gBuffer == null) {
+//            buffer = new BufferedImage(WIDTH2,HEIGHT2, BufferedImage.TYPE_INT_RGB); 
+//            gBuffer = buffer.createGraphics();
+//        }
+//        // background.blit(gBuffer);
+//        //draw the cursor
+//        Image viseur = ImageBank.get().getImages(Constantes.viseurRef);
+//        gBuffer.drawImage(viseur, (int)mousePos.getX()-viseur.getWidth(null)/2, (int)mousePos.getY()-viseur.getHeight(null)/2, null);
+//        
+//        jSliderFx.paint(gBuffer);
+//        jButtonOK.paint(gBuffer);
+//        jSliderBgm.paint(gBuffer);
+//        jSliderMaster.paint(gBuffer);
+//    }
+//    @Override
+//    protected void blitEntites() {
+//    }
+//
+//    @Override
+//    public void gameOver() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+
 }

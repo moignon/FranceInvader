@@ -32,19 +32,26 @@ public class TriBlaster implements Weapon {
         
         dernierTir = tireur.getPanel().getCurrentTime();
         Projectile[] tirs = new Projectile[3];
-        tirs[0] = new Flamme(s, tireur.getPanel());
-        tirs[0].setYspeed(-projectileSpeed);
-        tirs[0].setPosRelativeTo(0, tireur.getH()*3/4, tireur, true);
+        Flamme f;
+        f = new Flamme(s, tireur.getPanel());
+        f.setYspeed(-projectileSpeed);
+        f.setPosRelativeTo(0, tireur.getH()*3/4, tireur, true);
+        f.audio.setGain(-20);
+        tirs[0] = f;
         
-        tirs[1] = new Flamme(s, tireur.getPanel());
-        tirs[1].setYspeed(-projectileSpeed);
-        tirs[1].setXspeed(-1);
-        tirs[1].setPosRelativeTo(30, 30, tireur, true);
+        f = new Flamme(s, tireur.getPanel());
+        f.setYspeed(-projectileSpeed);
+        f.setXspeed(-1);
+        f.setPosRelativeTo(30, 30, tireur, true);
+        f.audio.setGain(-20);
+        tirs[1] = f;
         
-        tirs[2] = new Flamme(s, tireur.getPanel());
-        tirs[2].setYspeed(-projectileSpeed);
-        tirs[2].setXspeed(1);
-        tirs[2].setPosRelativeTo(-30, 30, tireur, true);
+        f = new Flamme(s, tireur.getPanel());
+        f.setYspeed(-projectileSpeed);
+        f.setXspeed(1);
+        f.setPosRelativeTo(-30, 30, tireur, true);
+        f.audio.setGain(-20);
+        tirs[2] = f;
         
         for (int i =0; i < tirs.length; i ++){
             tirs[i].setHitDmg(projectileDmg);

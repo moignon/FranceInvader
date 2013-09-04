@@ -21,34 +21,27 @@ import javax.swing.JFrame;
 public class MainMenu extends GamePanel {
     
     Background background;
-    AudioPlayer audio;
+   
     public MainMenu (GameFrame frame){
         super(frame);
         background = new Background(Constantes.MainMenuBackgroundRef);
         background.setSpeed(0);
         audio = AudioPlayer.createPlayer(Constantes.MainMenuBgmRef);
-        audio.setLooping(false);
+        audio.setLooping(true);
         audio.setChan(AudioPlayer.Channels.MUSIC);
         audio.START();
         
     }
     
-        @Override
-    public void gameUpdate(){
+    @Override
+        public void gameUpdate(){
             background.update();
             if(keys[java.awt.event.KeyEvent.VK_ENTER]){
                 launchLV(new Level1(this.getConteneur()));
             }
         }
-    public void launchLV(GamePanel level){
-        getConteneur().remove(this);
-        getConteneur().setVisible(false);
-        getConteneur().add(level);
-        getConteneur().setVisible(true);
-        audio.STOP();
-        audio = null;
-        this.stopGame();
-    }
+        
+   
 
     @Override
     protected void blitEntites() {
