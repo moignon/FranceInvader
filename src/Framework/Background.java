@@ -22,10 +22,16 @@ public class Background {
         sprite = new Sprite(ImageBank.get().getImages(ref));   
     }
 
+    public void blit(Graphics2D gBuffer, Camera cam) {
+        sprite.draw(gBuffer, 0+cam.getCorrectionX(), position+cam.getCorrectionY());
+        sprite.draw(gBuffer, 0+cam.getCorrectionX(),position - sprite.getHeight()+cam.getCorrectionY());
+    }
+    
     public void blit(Graphics2D gBuffer) {
         sprite.draw(gBuffer, 0, position);
         sprite.draw(gBuffer, 0,position - sprite.getHeight());
     }
+    
 
     public void update() {
         position = (position + speed) % sprite.getHeight();
