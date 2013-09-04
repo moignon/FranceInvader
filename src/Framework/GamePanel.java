@@ -49,6 +49,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
         return dTime;
     }
     
+    public Camera cam;
     
     
     protected Vector mousePos;
@@ -62,6 +63,9 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     
     private static int WIDTH2 = 1250;
     private static int HEIGHT2 = 875;
+    
+    
+    
     private long frameRate = 1000/90;
     
     private Boolean running = false ;
