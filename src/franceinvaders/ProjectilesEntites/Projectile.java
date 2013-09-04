@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class Projectile extends Entite{
     
     private int hitDmg = 0;
+    int gain;
     
     public Projectile(Sprite sprite, GamePanel panel){
         super(sprite,panel);
@@ -52,6 +53,10 @@ public class Projectile extends Entite{
 
     @Override
     public void collided(Entite s, Collision c) {
+    }
+
+    public void setGain(int i) {
+        
     }
     
                         

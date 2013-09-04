@@ -118,8 +118,6 @@ public class Player extends Entite {
             if (e instanceof Mob) {
                 if (e.collidesWith(this)){
                     this.dead();
-                    panel.gameOver();
-                    return;
                 }
             }
             if (e instanceof CashIcon){
@@ -158,10 +156,9 @@ public class Player extends Entite {
 
     private void dead() {
         Explosion exp = new Explosion(panel);
-        if (exp != null){
-            exp.setPosition(getX(), getY());
-            panel.add(exp);
-        }
+        exp.setPosition(getX(), getY());
+        panel.add(exp);
+        //panel.gameOver();
     }
     private void chooseAnim (){
         if(v.getX() > 0)sprite.setAnim(1);

@@ -27,4 +27,5 @@ public class Constantes {
                                 Level1BgmRef = "RoccoW_-_Break-A-Leg.wav",
                                 ExplosionFxRef = "fx2.wav",
                                 FireFxRef = "fire.wav";
+    static final String OptionMenuBackgroundRef = backgroundRef;
 }

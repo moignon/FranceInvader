@@ -11,24 +11,19 @@ import Framework.Sprite;
 import Framework.ImageBank;
 import Framework.SpriteAnime;
 import franceinvaders.Mobs.Mob;
-import franceinvaders.Mobs.Psy;
 import franceinvaders.Mobs.VagueAsteroid;
 import franceinvaders.Mobs.jamel;
-import franceinvaders.ProjectilesEntites.Flamme;
-import Animations.Papa;
 import franceinvaders.Weapons.CashIcon;
-import franceinvaders.Weapons.DaddyBoom;
 import franceinvaders.Weapons.MissileGuide;
 import franceinvaders.Weapons.TirSimple;
 import franceinvaders.Weapons.Tourbilol;
 import franceinvaders.Weapons.TriBlaster;
-import franceinvaders.Weapons.Weapon;
+import java.awt.Cursor;
 import java.awt.Font;
-import java.io.File;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.Line;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 /**
  * @author John
  */
@@ -57,8 +52,8 @@ public class Level1 extends GamePanel {
         
         player1 = new Player(sPlayer, this);
         player1.setPosition(this.getWIDTH()/2,this.getHEIGHT()- player1.h);
-        player1.armeEquipee = new TriBlaster();
-        
+        player1.armeEquipee = new MissileGuide();
+        player1.armeSecondaire = new TriBlaster();
         
         cash = new CashIcon (this);
         cash.setPosition(getWIDTH()/2, getHEIGHT()/2);
@@ -100,6 +95,7 @@ public class Level1 extends GamePanel {
                 getListEntite().add(vague);
               //  player1.armeEquipee = new TriBlaster();
                 player1.armeSecondaire = new Tourbilol(player1);
+                
             }
         }
         
@@ -149,6 +145,12 @@ public class Level1 extends GamePanel {
         return this.player1;
     }
 
+        @Override
+    public void mouseEntered(MouseEvent e) {
+        BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+        Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
+        setCursor(blankCursor);
+    }
     
 
 

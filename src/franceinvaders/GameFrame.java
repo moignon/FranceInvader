@@ -21,11 +21,10 @@ public class GameFrame extends JFrame{
     public GameFrame (){
         super();
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        
         boolean fullscreen = false;
         if(fullscreen) // Full screen mode
 	{
-	    this.setUndecorated(true);
+            this.setUndecorated(true);
             this.setLocationRelativeTo(null);
 	    // Puts the frame to full screen.
 	    this.setExtendedState(this.MAXIMIZED_BOTH);
@@ -42,9 +41,7 @@ public class GameFrame extends JFrame{
         MainMenu menu = new MainMenu(this);
         pack();
         this.setLocationRelativeTo(null);
-        if(!fullscreen){
-            setSize(1250 + getSize().width - menu.getSize().width, 875 + getSize().height - menu.getSize().height);
-        }
+       
         this.setVisible(true);
     }
     public void showOptionMenu (){

@@ -60,15 +60,15 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
                       echap = false,
                       enter = false;
     
-    private static int WIDTH2 = 1250;
-    private static int HEIGHT2 = 875;
+    protected static int WIDTH2 = 1250;
+    protected static int HEIGHT2 = 875;
     private long frameRate = 1000/90;
     
     private Boolean running = false ;
     private Boolean devMode = false;
     
     protected Graphics2D gBuffer;
-    private BufferedImage buffer = null ;
+    protected BufferedImage buffer = null ;
     protected boolean gameOver = false; 
     private String gameOverMsg ="Gameover , Noob !";
     private double fps = 0 ;
@@ -77,10 +77,10 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     protected boolean pause;
     private ArrayList <Entite> listEntite;
     
-    private static long previousTime;
-    private static long dTime;
-    private static long sleepTime;
-    private static long currentTime;
+    private long previousTime;
+    private long dTime;
+    private long sleepTime;
+    private long currentTime;
     
     private int score = 0;
     
@@ -100,11 +100,16 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
         addMouseMotionListener(this);
         listEntite = new ArrayList <>();
         Boolean packed = false;
-        GamePanel.currentTime = System.currentTimeMillis();
+        currentTime = System.currentTimeMillis();
         mousePos = new Vector(WIDTH2/2,HEIGHT2/2);
         initKeys();
         conteneur.add(this);
-    }  
+    } 
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(WIDTH2,HEIGHT2);
+    }
+    
     public int getWIDTH (){
         return WIDTH2;
         //return this.getHeight();
@@ -144,6 +149,16 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     }
     public void pauseGame (){
         pause = !pause;
+    }
+    public void launchLV(GamePanel level){
+        getConteneur().remove(this);
+        getConteneur().setVisible(false);
+        getConteneur().add(level);
+        getConteneur().setVisible(true);
+        if (audio != null)
+            audio.STOP();
+        audio = null;
+        this.stopGame();
     }
     
     @Override
@@ -299,12 +314,13 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
     public void mouseExited(MouseEvent e) {
     }
     
-    @Override
+        @Override
     public void mouseEntered(MouseEvent e) {
         BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
         Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
         setCursor(blankCursor);
     }
+
     
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -393,7 +409,7 @@ public abstract class GamePanel extends JPanel implements Runnable, KeyListener,
         getConteneur().remove(this); 
         this.pause = true;
         getConteneur().setVisible(false);
-        getConteneur().add(Options.get(this));
+        getConteneur().add(Options.get(getConteneur(),this));
         getConteneur().setVisible(true);
     }
     public void restaure (){
