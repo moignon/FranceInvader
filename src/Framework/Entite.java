@@ -37,11 +37,15 @@ public abstract class Entite {
    
     public Entite (Sprite _sprite,GamePanel _panel){
         sprite = _sprite;
-        g2d = sprite.getImage().createGraphics();
-        h = sprite.getHeight();
-        l = sprite.getWidth();
+        if (sprite != null)
+        {
+            g2d = sprite.getImage().createGraphics();
+            h = sprite.getHeight();
+            l = sprite.getWidth();
+            visible = true;
+        }
         active = true ;
-        visible = true;
+        
         collisionBox = new CollisionBox();
         collisionBox.setBounds(new Rectangle((int)pos.getX(), (int)pos.getY(), l, h));
         panel = _panel;
@@ -51,15 +55,20 @@ public abstract class Entite {
         if (active){
             trollNoobs();
             move();
-            sprite.updateAnim();
-         }
+            if (sprite!= null)
+            {
+            
+                sprite.updateAnim();
+         
+            }
+        }
     }
     
     
     public void blit(Graphics2D gBuffer) {
         if (active)
             if (visible){
-                sprite.drawRotate(gBuffer, pos.getX()- this.getL()/2,pos.getY()-getH()/2, angle);
+                sprite.drawRotate(gBuffer, pos.getX()- (this.getL()/2) + panel.cam.getCorrectionX(),pos.getY()-getH()/2+panel.cam.getCorrectionY(), angle);
                 if(panel.getDevMode()){
                     Color col = gBuffer.getColor();
                     gBuffer.setColor(Color.RED);
